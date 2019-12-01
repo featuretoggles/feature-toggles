@@ -1,19 +1,20 @@
 {
-  "name": "feature-toggle",
+  "name": "feature-toggles",
   "version": "0.0.1",
   "description": "Feature toggle helps to build features, keep code clean and separate ",
   "main": "index.js",
   "author": "Sanjay <panda.sanjay18@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "node:debug": "babel-node ./examples/basic/index.js --inspect-brk=26341",
-    "start": "babel-node ./examples/basic/index.js"
+    "node:debug": "babel-node ./scripts/run basic --inspect-brk=26341",
+    "start": "babel-node ./scripts/run basic"
   },
   "dependencies": {
     "babel-generator": "^6.26.1",
     "babel-traverse": "^6.26.0",
     "babel-types": "^6.26.0",
-    "babylon": "^6.18.0"
+    "babylon": "^6.18.0",
+    "yargs": "^15.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.4",

@@ -1,6 +1,8 @@
 # Feature Toggles the best way
  
-This is a tool for build time feature-toggling.
+This is a tool for use feature toggling in a *REACT web application*. 
+
+> Are you struggling with maintenance of unfinished feature? Are you tired of long running branches? Do you want to implement Continuos Delivery and Trunk Based Development?
 
 # Benefits
 - Best for truck-based development
@@ -26,9 +28,35 @@ This is a tool for build time feature-toggling.
 - Story and feature-toggle mapping in story 
 
 
-# How this works
+# Getting Started
+## STEP 1: Install dependency
+```sh
+    yarn add feature-toggles --dev
+    #or
+    npm install feature-toggles --save-dev
+```
 
-A folder name `./feature-toggles/` will be preset in root of every application. Different configuration of toggles will be available as `[name].json` containing array of feature-toggle.  
+## STEP 2: (add to .babelrc)
+```js
+    {
+        plugins: [
+            "babel-plugin-feature-toggles" 
+            // Always add this on the first position 
+            // (Otherwise the plugin might  not work)
+        ]
+    }
+    
+```
+
+Default config:
+
+**commentStart:** "toggleStart" \
+**commentEnd:** "toggleEnd" \
+**dir:** "</root path/>" \
+**toggleName:** "" (If nothing is passed then the toggle will not apply)
+        
+## STEP 3: (Setting up feature toggle config)
+A folder name `./feature-toggles/` will be preset in root of the application. Different configuration of toggles will be available as `[name].json` containing array of feature-toggle.  
 
 `name` can be : (Below are the convention)
 
@@ -38,7 +66,7 @@ A folder name `./feature-toggles/` will be preset in root of every application. 
     - Release name toggle (This feature is for release config)
         | - prod.json
         | - <name for your release>.json
-
+> *Short-form of any name will be good fit to create above file (e.g. Feature Team 1 = ft1)*
 
 ```
 // Toggle config
@@ -52,6 +80,22 @@ A folder name `./feature-toggles/` will be preset in root of every application. 
          | - feature-2
 
 ```
+## STEP 4: How to build your application using feature-toggle?
+As above mentioned each file treated as team or releases, so we should tell the babel plugin to run by "toggleName".
+
+*You can do that couple of ways:* 
+
+Pass as *argv* to any command
+```sh
+    yarn start --toggleName=ft1
+```
+Pass as *env* variable
+```sh
+   TOGGLE_NAME=ft1 yarn start
+```
+
+# How this works (WIP)
+
 ```js
 
 // Output 
@@ -79,5 +123,7 @@ A folder name `./feature-toggles/` will be preset in root of every application. 
 
 }
 ```
+
+Credits : [@paulpruteanu](https://github.com/paulpruteanu) 
 
 
