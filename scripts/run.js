@@ -1,9 +1,8 @@
-const argv = require("yargs").argv;
-console.log(argv)
+const { argv } = require("yargs");
+
 const run = () => {
-    const examplePath = "../examples/"
-    require(examplePath + argv._.join("/"))
-}
+  const examplePath = "../examples/";
+  require(examplePath + argv._.join("/"));
+};
 
-run()
-
+run();
