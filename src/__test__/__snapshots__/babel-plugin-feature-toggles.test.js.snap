@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`SNAPSHOT- plugin testing for basic code 1`] = `
-"\\"use strict\\";
-
-var foo = 1;
-
-if (foo) {}"
-`;

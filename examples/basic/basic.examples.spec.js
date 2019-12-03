@@ -4,15 +4,15 @@ import featureTogglePlugin from "../../src";
 /**
  * Here this is a basic example get transpile by babel plugin
  */
-{
+it("Basic function", () => {
   const { code } = transformFileSync(`${__dirname}/src/basic.js`, {
     rootMode: "upward",
     plugins: [[featureTogglePlugin, { dir: __dirname, toggleName: "ft1" }]]
   });
-  console.log(code);
-}
+  expect(code).toMatchSnapshot();
+});
 
-{
+it("React component function", () => {
   const { code } = transformFileSync(`${__dirname}/src/ReactComponent.js`, {
     rootMode: "upward",
     plugins: [
@@ -20,5 +20,5 @@ import featureTogglePlugin from "../../src";
       "@babel/plugin-transform-react-jsx"
     ]
   });
-  console.log(code);
-}
+  expect(code).toMatchSnapshot();
+});

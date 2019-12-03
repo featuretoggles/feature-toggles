@@ -1,11 +1,14 @@
+import { argv } from "yargs";
 import debug from "debug";
 import { getToggles } from "./utils/getTogglesInfo";
 
 const log = debug("feature-toggles:babel-plugin");
 export default (babel, options) => {
   const { types: t } = babel;
-  const dir = process.env.TOGGLE_DIR || options.dir || process.cwd();
-  const defaultToggle = process.env.TOGGLE_NAME || options.toggleName;
+  const dir =
+    process.env.TOGGLE_DIR || options.dir || argv.toggleName || process.cwd();
+  const defaultToggle =
+    process.env.TOGGLE_NAME || argv.toggleName || options.toggleName;
   const allVisitors = Object.keys(t.VISITOR_KEYS)
     .filter(data => data !== "Program")
     .join("|");
@@ -66,7 +69,7 @@ export default (babel, options) => {
           log(`"${name}" Applied at position %o`, finalToggleList[name]);
         });
       },
-      [allVisitors](path, state) {
+      [allVisitors](path) {
         Object.values(finalToggleList).forEach(data => {
           data.forEach(pos => {
             if (
@@ -74,7 +77,11 @@ export default (babel, options) => {
               pos[0] <= path.node.start &&
               pos[1] >= path.node.end
             ) {
-              path.remove();
+              if (path.key === "expression") {
+                path.parentPath.remove();
+              } else {
+                path.remove();
+              }
             }
           });
         });
