@@ -1,6 +1,6 @@
 import path from "path";
-import { argv } from "yargs";
 import reqAll from "./requireAll";
+import { argv } from "./argvUtils";
 
 const TOGGLE_PATH = "./feature-toggles";
 export const getTheNameWithOutExtension = fileName => fileName.split(".")[0];

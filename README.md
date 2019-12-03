@@ -31,16 +31,16 @@ This is a tool for use feature toggling in a *REACT web application*.
 # Getting Started
 ## STEP 1: Install dependency
 ```sh
-    yarn add feature-toggles --dev
+    yarn add babel-plugin-feature-toggles --dev
     #or
-    npm install feature-toggles --save-dev
+    npm install babel-plugin-feature-toggles --save-dev
 ```
 
 ## STEP 2: (add to .babelrc)
 ```js
     {
         plugins: [
-            "babel-plugin-feature-toggles" 
+            "feature-toggles" 
             // Always add this on the first position 
             // (Otherwise the plugin might  not work)
         ]

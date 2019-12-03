@@ -1,12 +1,11 @@
-import { argv } from "yargs";
 import debug from "debug";
 import { getToggles } from "./utils/getTogglesInfo";
-
+import { argv } from "./utils/argvUtils";
 const log = debug("feature-toggles:babel-plugin");
-export default (babel, options) => {
+export default (babel, options = {}) => {
   const { types: t } = babel;
   const dir =
-    process.env.TOGGLE_DIR || options.dir || argv.toggleName || process.cwd();
+    process.env.TOGGLE_DIR || argv.toggleDir || options.dir || process.cwd();
   const defaultToggle =
     process.env.TOGGLE_NAME || argv.toggleName || options.toggleName;
   const allVisitors = Object.keys(t.VISITOR_KEYS)

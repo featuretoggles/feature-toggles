@@ -1,6 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Basic function 1`] = `
+exports[`BABEL6 - Basic function 1`] = `
+"// \`
+// If \\"ft1\\" toggle is used to build the application:
+// {
+//     \\"feature-2\\" : true,
+//     \\"feature-3\\" : false // Any code wrapped with feature-3 will be removed
+// }
+// \`
+
+function basic() {
+  // toggleEnd(feature-3)
+
+  // The below toggle is not available in the toggle list so that will not removed by toggle
+  // toggleStart(feature-10)
+  console.log(\\"This will not remove\\");
+  // toggleEnd(feature-10)
+
+  // toggleStart(feature-3)
+}
+
+export default {
+  basic
+};"
+`;
+
+exports[`BABEL6 - React component function with Argv 1`] = `
+"import React from \\"react\\";
+class Welcome extends React.Component {
+  render() {
+    return React.createElement(
+      \\"div\\",
+      null,
+      React.createElement(
+        \\"h1\\",
+        null,
+        \\"This will show\\"
+      )
+    );
+  }
+}
+export const newComponent = () => {
+  return React.createElement(
+    \\"div\\",
+    null,
+    React.createElement(
+      \\"h1\\",
+      null,
+      \\"You only see me, I am a full feature\\"
+    ),
+    React.createElement(
+      \\"h1\\",
+      null,
+      \\"This will show\\"
+    )
+  );
+};
+export default Welcome;"
+`;
+
+exports[`BABEL7 - Basic function 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -29,7 +88,67 @@ var _default = {
 exports[\\"default\\"] = _default;"
 `;
 
-exports[`React component function 1`] = `
+exports[`BABEL7 - React component function with Argv 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports[\\"default\\"] = exports.newComponent = void 0;
+
+var _react = _interopRequireDefault(require(\\"react\\"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { \\"default\\": obj }; }
+
+function _typeof(obj) { if (typeof Symbol === \\"function\\" && typeof Symbol.iterator === \\"symbol\\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \\"function\\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \\"symbol\\" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\\"Cannot call a class as a function\\"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\\"value\\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === \\"object\\" || typeof call === \\"function\\")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError(\\"this hasn't been initialised - super() hasn't been called\\"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== \\"function\\" && superClass !== null) { throw new TypeError(\\"Super expression must either be null or a function\\"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Welcome =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Welcome, _React$Component);
+
+  function Welcome() {
+    _classCallCheck(this, Welcome);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Welcome).apply(this, arguments));
+  }
+
+  _createClass(Welcome, [{
+    key: \\"render\\",
+    value: function render() {
+      return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
+    }
+  }]);
+
+  return Welcome;
+}(_react[\\"default\\"].Component);
+
+var newComponent = function newComponent() {
+  return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
+};
+
+exports.newComponent = newComponent;
+var _default = Welcome;
+exports[\\"default\\"] = _default;"
+`;
+
+exports[`BABEL7- React component function  1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {

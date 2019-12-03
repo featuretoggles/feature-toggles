@@ -1,15 +1,18 @@
 {
   "name": "feature-toggles",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "description": "Feature toggles helps to build features, keep code clean and separate. This is a tool for use feature toggling in a REACT web application.",
-  "main": "./lib/index.js",
+  "main": "index.js",
   "author": "Sanjay <contact@sanjaypanda.com>",
   "license": "MIT",
+  "keywords": [
+    "babel-plugin"
+  ],
   "scripts": {
     "node:debug": "babel-node ./scripts/run basic --inspect-brk=26341",
     "start": "babel-node ./scripts/run basic",
     "build": "babel src --out-dir lib --copy-files README.md LICENSE && rm -rf ./lib/__test__",
-    "test": "jest",
+    "test": "jest --toggleName=ft1 --toggleDir=./examples/basic",
     "lint": "eslint .",
     "prelive": "rm -rf lib && yarn run lint && yarn run test && yarn run build && babel-node ./scripts/copyPackage.js --name babel-plugin-feature-toggles  ",
     "live:babel": "npm run prelive && npm publish ./lib"
@@ -19,8 +22,7 @@
     "url": "https://github.com/pandasanjay/feature-toggles.git"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.7.4",
-    "yargs": "^15.0.2"
+    "@babel/preset-env": "^7.7.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.4",
@@ -29,8 +31,9 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.7.4",
     "@babel/plugin-transform-react-jsx": "^7.7.4",
     "@babel/traverse": "^7.7.4",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.3",
-    "babel-plugin-jsx": "^1.2.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
     "debug": "^4.1.1",
     "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^14.0.0",
@@ -39,6 +42,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "jest": "^24.9.0",
     "prettier": "^1.19.1",
-    "react": "^16.12.0"
+    "react": "^16.12.0",
+    "yargs": "^15.0.2"
   }
 }
