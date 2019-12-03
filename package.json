@@ -1,6 +1,6 @@
 {
   "name": "feature-toggles",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Feature toggles helps to build features, keep code clean and separate. This is a tool for use feature toggling in a REACT web application.",
   "main": "./lib/index.js",
   "author": "Sanjay <contact@sanjaypanda.com>",
@@ -12,7 +12,7 @@
     "test": "jest",
     "lint": "eslint .",
     "prelive": "rm -rf lib && yarn run lint && yarn run test && yarn run build && babel-node ./scripts/copyPackage.js --name babel-plugin-feature-toggles  ",
-    "live:babel": "yarn prelive && npm publish ./lib"
+    "live:babel": "npm run prelive && npm publish ./lib"
   },
   "repository": {
     "type": "git",
