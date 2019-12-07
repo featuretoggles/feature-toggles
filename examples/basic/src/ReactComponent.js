@@ -1,3 +1,8 @@
+/*
+featureTogglesConfig: {
+  "feature-10": false
+}
+*/
 import React from "react";
 class Welcome extends React.Component {
   render() {
@@ -10,7 +15,7 @@ class Welcome extends React.Component {
 
         <h1>
           {
-            /*toggleStart(feature-3)*/ "This feature is under development" /*toggleEnd(feature-3)*/
+            /*toggleStart(feature-10)*/ "This feature is under development" /*toggleEnd(feature-10)*/
           }
           This will show
         </h1>

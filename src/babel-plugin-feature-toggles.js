@@ -11,10 +11,15 @@ export default (babel, options = {}) => {
   const allVisitors = Object.keys(t.VISITOR_KEYS)
     .filter(data => data !== "Program")
     .join("|");
-  const togglesList = getToggles(dir);
-  const toggles = togglesList[defaultToggle];
+  let togglesList = {};
+  let toggles = {};
+  if (dir && defaultToggle) {
+    togglesList = getToggles(dir);
+    toggles = togglesList[defaultToggle];
+  }
   const listToggleName = {};
   const finalToggleList = {};
+  const inFileConfig = "featureTogglesConfig:";
   const opt = {
     ...{
       commentStart: "toggleStart",
@@ -27,6 +32,19 @@ export default (babel, options = {}) => {
     visitor: {
       Program(path) {
         path.container.comments.forEach(data => {
+          if (data.value.indexOf(inFileConfig) !== -1) {
+            try {
+              const overrideFeatureNames =
+                JSON.parse(
+                  data.value.replace(inFileConfig, "").replace(/\/n/, "")
+                ) || {};
+              toggles = { ...toggles, ...overrideFeatureNames };
+            } catch (error) {
+              throw Error(
+                `Looks like you missed something in file config ${data.value}`
+              );
+            }
+          }
           if (data.value.indexOf(opt.commentStart) !== -1) {
             const res = data.value.match(
               new RegExp(`${opt.commentStart}\\((.*)\\)`)

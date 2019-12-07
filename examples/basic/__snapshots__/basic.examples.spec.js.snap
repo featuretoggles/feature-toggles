@@ -26,12 +26,22 @@ export default {
 `;
 
 exports[`BABEL6 - React component function with Argv 1`] = `
-"import React from \\"react\\";
+"/*
+featureTogglesConfig: {
+  \\"feature-10\\": false
+}
+*/
+import React from \\"react\\";
 class Welcome extends React.Component {
   render() {
     return React.createElement(
       \\"div\\",
       null,
+      React.createElement(
+        \\"h1\\",
+        null,
+        \\"You only see me, I am a full feature\\"
+      ),
       React.createElement(
         \\"h1\\",
         null,
