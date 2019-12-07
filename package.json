@@ -1,6 +1,6 @@
 {
   "name": "feature-toggles",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Feature toggles helps to build features, keep code clean and separate. This is a tool for use feature toggling in a REACT web application.",
   "main": "index.js",
   "author": "Sanjay <contact@sanjaypanda.com>",
