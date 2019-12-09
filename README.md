@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="">
+  <a href="https://github.com/featuretoggles/feature-toggles">
     <img alt="Feature Toggles" src="https://avatars3.githubusercontent.com/u/58596566?s=400&u=461bf3f684f7cdb44900167ae4b416d835f4f3b9&v=4">
   </a>
 </p>
