@@ -1,12 +1,15 @@
 {
   "name": "feature-toggles",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Feature toggles helps to build features, keep code clean and separate. This is a tool for use feature toggling in a REACT web application.",
   "main": "index.js",
   "author": "Sanjay <contact@sanjaypanda.com>",
   "license": "MIT",
   "keywords": [
-    "babel-plugin"
+    "babel-plugin",
+    "feature-toggles",
+    "Toggling Best way",
+    "Build Time Feature Toggle"
   ],
   "scripts": {
     "node:debug": "babel-node ./scripts/run basic --inspect-brk=26341",
@@ -19,10 +22,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pandasanjay/feature-toggles.git"
+    "url": "https://github.com/featuretoggles/feature-toggles.git"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.7.4"
+    "debug": "^4.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.4",
@@ -30,11 +33,11 @@
     "@babel/node": "^7.7.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.7.4",
     "@babel/plugin-transform-react-jsx": "^7.7.4",
+    "@babel/preset-env": "^7.7.6",
     "@babel/traverse": "^7.7.4",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.3",
     "babel-plugin-transform-react-jsx": "^6.24.1",
-    "debug": "^4.1.1",
     "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.7.0",

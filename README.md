@@ -1,8 +1,21 @@
-# Feature Toggles the best way
+<p align="center">
+  <a href="">
+    <img alt="Feature Toggles" src="https://avatars3.githubusercontent.com/u/58596566?s=400&u=461bf3f684f7cdb44900167ae4b416d835f4f3b9&v=4">
+  </a>
+</p>
+<p align="center">
+  This tool is built to do feature toggling for REACT web application.
+</p>
+<p align="center">
+    <a href="https://www.npmjs.com/package/babel-plugin-feature-toggles"><img alt="Babel plugin Downloads" src="https://img.shields.io/npm/dm/babel-plugin-feature-toggles.svg?maxAge=43200&label=Babel plugin downloads"></a>
+</p>
+<p align="center">
+    <a href="https://github.com/featuretoggles/feature-toggles"><img alt="Github CI" src="https://github.com/featuretoggles/feature-toggles/workflows/Node%20CI/badge.svg"></a>
+</p>
 
-This tool is built to do feature toggling in a *REACT web application*.
+# Feature Toggling the best way (Build time)
 
-This is a babel plugin, help to remove the toggled off feature in the build time.
+Currently, This is available as babel plugin.
 
 > Are you struggling with the maintenance of an unfinished feature?
 > Are you tired of long-running branches?
@@ -50,7 +63,7 @@ This is a babel plugin, help to remove the toggled off feature in the build time
 ```js
     {
         plugins: [
-            "feature-toggles" 
+            "feature-toggles"
             // Always add this on the first position 
             // (Otherwise the plugin might  not work)
         ]
@@ -199,5 +212,11 @@ e.g if selected `ft1` (command used `yarn start --toggleName=ft1`) then this wil
 
 }
 ```
+## Try it
+
+[Example 1 - Basic example](https://runkit.com/pandasanjay/runkit-npm-babel-plugin-feature-toggles)
+
+[Example 1 - React Component example](https://runkit.com/pandasanjay/babel-component)
+
 
 Credits : [@paulpruteanu](https://github.com/paulpruteanu)
