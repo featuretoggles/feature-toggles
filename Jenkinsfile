@@ -6,17 +6,18 @@ pipeline {
             parallel {
                 stage('Build') {
                     steps {
-                        sh 'yarn build'
+                        sh 'node -v'
+                        sh 'npm run build'
                     }
                 }
                 stage('Test') {
                     steps {
-                        sh "yarn test"
+                        sh "npm run test"
                     }
                 }
                 stage('Deploy') {
                     steps {
-                        sh "yarn test"
+                        sh "npm run test"
                     }
                 }
 
