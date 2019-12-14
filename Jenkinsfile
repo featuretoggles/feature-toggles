@@ -2,23 +2,25 @@ pipeline {
     agent any
 
     stages {
-        parallel {
-            stage('Build') {
-                steps {
-                    sh 'yarn build'
+        stage('Build and Test') {
+            parallel {
+                stage('Build') {
+                    steps {
+                        sh 'yarn build'
+                    }
                 }
-            }
-            stage('Test') {
-                steps {
-                    sh "yarn test"
+                stage('Test') {
+                    steps {
+                        sh "yarn test"
+                    }
                 }
-            }
-            stage('Deploy') {
-                steps {
-                    sh "yarn test"
+                stage('Deploy') {
+                    steps {
+                        sh "yarn test"
+                    }
                 }
-            }
 
+            }
         }
     }
 }
