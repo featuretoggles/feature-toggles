@@ -10,7 +10,9 @@ pipeline {
     }
     stages {
         stage('dependency install') {
-            sh "npm install"
+             steps {
+                sh "npm install"
+             }
         }
         stage('Build and Test') {
             parallel {
