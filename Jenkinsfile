@@ -9,6 +9,9 @@ pipeline {
         CI = 'true'
     }
     stages {
+        stage('dependency install') {
+            sh "npm install"
+        }
         stage('Build and Test') {
             parallel {
                 stage('Build') {
