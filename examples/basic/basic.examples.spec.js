@@ -45,3 +45,19 @@ it("BABEL6 - React component function with Argv", () => {
   });
   expect(code).toMatchSnapshot();
 });
+it("BABEL7 - Vue component function with Argv", () => {
+  const { code } = transformFileSync(`${__dirname}/src/VueComponent.js`, {
+    rootMode: "upward",
+    plugins: [
+      [featureTogglePlugin, { dir: __dirname }],
+      "@babel/plugin-transform-react-jsx"
+    ]
+  });
+  expect(code).toMatchSnapshot();
+});
+it("BABEL6 - Vue component function with Argv", () => {
+  const { code } = transformFS(`${__dirname}/src/VueComponent.js`, {
+    plugins: [[featureTogglePlugin, { dir: __dirname }], "transform-react-jsx"]
+  });
+  expect(code).toMatchSnapshot();
+});

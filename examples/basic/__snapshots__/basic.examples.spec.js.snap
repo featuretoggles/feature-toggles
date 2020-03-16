@@ -9,6 +9,55 @@ exports[`BABEL6 - Basic function 1`] = `
 // }
 // \`
 
+/**
+ * If you wan to reassign a variable
+ * please use below toggles
+ */
+let abc;
+abc = true;
+/* toggleStart(feature-3) */
+
+/* toggleEnd(feature-3) */
+
+/**
+ * SWITCH CASE
+ */
+switch (abc) {
+  case true:
+    console.log(\\"Hello\\");
+  /* toggleStart(feature-3) */
+}
+
+/**
+ * Inside Object
+ */
+const obj = {
+  /* toggleEnd(feature-3) */
+  xyz: true
+};
+
+/**
+ * Object Member Function
+ */
+obj
+/* toggleStart(feature-3) */
+.func()
+/* toggleEnd(feature-3) */
+.func1();
+
+/**
+ * If else condition
+ */
+
+if (abc &&
+//toggleEnd(feature-3)
+obj.abc) {
+  console.log();
+}
+//toggleStart(feature-3)
+else {}
+//toggleEnd(feature-3)
+
 function basic() {
   // toggleEnd(feature-3)
 
@@ -16,8 +65,6 @@ function basic() {
   // toggleStart(feature-10)
   console.log(\\"This will not remove\\");
   // toggleEnd(feature-10)
-
-  // toggleStart(feature-3)
 }
 
 export default {
@@ -32,6 +79,11 @@ featureTogglesConfig: {
 }
 */
 import React from \\"react\\";
+
+/* toggleStart(feature-10) */
+
+/* toggleEnd(feature-10) */
+
 class Welcome extends React.Component {
   render() {
     return React.createElement(
@@ -44,8 +96,7 @@ class Welcome extends React.Component {
       ),
       React.createElement(
         \\"h1\\",
-        null,
-        \\"This will show\\"
+        null
       )
     );
   }
@@ -54,11 +105,10 @@ export const newComponent = () => {
   return React.createElement(
     \\"div\\",
     null,
-    React.createElement(
-      \\"h1\\",
-      null,
-      \\"You only see me, I am a full feature\\"
-    ),
+    React.createElement(Welcome, {
+      abc: \\"true\\"
+      /* toggleStart(feature-3) */
+    }),
     React.createElement(
       \\"h1\\",
       null,
@@ -69,6 +119,18 @@ export const newComponent = () => {
 export default Welcome;"
 `;
 
+exports[`BABEL6 - Vue component function with Argv 1`] = `
+"let template;
+/**
+ * When we want to add a new feature we should wrap the old code with a \\"old-\\" prefix toggleName.
+ * This will be easy to remove code automatically using codemod.
+ */
+/* toggleStart(old-feature-3) */
+
+/* toggleEnd(feature-3) */
+Vue.component({});"
+`;
+
 exports[`BABEL7 - Basic function 1`] = `
 "\\"use strict\\";
 
@@ -76,7 +138,6 @@ Object.defineProperty(exports, \\"__esModule\\", {
   value: true
 });
 exports[\\"default\\"] = void 0;
-
 // \`
 // If \\"ft1\\" toggle is used to build the application:
 // {
@@ -84,8 +145,56 @@ exports[\\"default\\"] = void 0;
 //     \\"feature-3\\" : false // Any code wrapped with feature-3 will be removed
 // }
 // \`
+
+/**
+ * If you wan to reassign a variable
+ * please use below toggles
+ */
+var abc;
+abc = true;
+/* toggleStart(feature-3) */
+
+/* toggleEnd(feature-3) */
+
+/**
+ * SWITCH CASE
+ */
+switch (abc) {
+  case true:
+    console.log(\\"Hello\\");
+
+  /* toggleStart(feature-3) */
+}
+/**
+ * Inside Object
+ */
+
+
+var obj = {
+  /* toggleEnd(feature-3) */
+  xyz: true
+};
+/**
+ * Object Member Function
+ */
+
+obj
+/* toggleStart(feature-3) */
+.func()
+/* toggleEnd(feature-3) */
+.func1();
+/**
+ * If else condition
+ */
+
+if (abc && //toggleEnd(feature-3)
+obj.abc) {
+  console.log();
+} //toggleStart(feature-3)
+else {} //toggleEnd(feature-3)
+
+
 function basic() {
-  // toggleStart(feature-3)
   // toggleEnd(feature-3)
   // The below toggle is not available in the toggle list so that will not removed by toggle
   // toggleStart(feature-10)
@@ -128,6 +237,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== \\"function
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+/* toggleEnd(feature-10) */
 var Welcome =
 /*#__PURE__*/
 function (_React$Component) {
@@ -150,12 +260,38 @@ function (_React$Component) {
 }(_react[\\"default\\"].Component);
 
 var newComponent = function newComponent() {
-  return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
+  return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(Welcome, {
+    abc: \\"true\\"
+    /* toggleStart(feature-3) */
+
+  }), _react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
 };
 
 exports.newComponent = newComponent;
 var _default = Welcome;
 exports[\\"default\\"] = _default;"
+`;
+
+exports[`BABEL7 - Vue component function with Argv 1`] = `
+"\\"use strict\\";
+
+var template;
+/**
+ * When we want to add a new feature we should wrap the old code with a \\"old-\\" prefix toggleName.
+ * This will be easy to remove code automatically using codemod.
+ */
+
+/* toggleStart(old-feature-3) */
+
+/* toggleEnd(feature-3) */
+Vue.component(\\"button-counter\\", {
+  data: function data() {
+    return {
+      count: 0
+    };
+  },
+  template: template
+});"
 `;
 
 exports[`BABEL7- React component function  1`] = `
@@ -188,6 +324,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== \\"function
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+/* toggleEnd(feature-10) */
 var Welcome =
 /*#__PURE__*/
 function (_React$Component) {
@@ -210,7 +347,11 @@ function (_React$Component) {
 }(_react[\\"default\\"].Component);
 
 var newComponent = function newComponent() {
-  return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
+  return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(Welcome, {
+    abc: \\"true\\"
+    /* toggleStart(feature-3) */
+
+  }), _react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
 };
 
 exports.newComponent = newComponent;

@@ -27,6 +27,36 @@ export default (babel, options = {}) => {
     },
     ...options
   };
+  const adjustNodeAndUpdate = node => {
+    if (
+      ["left", "right"].includes(node.key) &&
+      !t.isAssignmentExpression(node.parentPath)
+    ) {
+      if (node.key == "right") {
+        node.parentPath.replaceWith(node.parent["left"]);
+      } else if (node.key == "left") {
+        node.parentPath.replaceWith(node.parent["right"]);
+      }
+    } else if (t.isIfStatement(node.parentPath)) {
+      if (node.key === "alternate") {
+        node.remove();
+      }
+    } else if (["object", "property"].includes(node.key)) {
+      if (node.key == "object") {
+        if (node.parent["property"].node) {
+          node.parentPath.replaceWith(node.parent["property"]);
+        }
+      } else if (node.key == "property") {
+        if (node.parent["object"].node) {
+          if (t.isCallExpression(node.parent["object"])) {
+            node.parentPath.replaceWith(node.parent["object"].callee);
+          } else {
+            node.parentPath.parentPath.replaceWith(node.parent["object"]);
+          }
+        }
+      }
+    }
+  };
   return {
     name: "feature-toggles", // not required
     visitor: {
@@ -75,6 +105,7 @@ export default (babel, options = {}) => {
             }
             listToggleName[res[1]].push(data.end);
           }
+          t.removeComments(data);
         });
         Object.keys(listToggleName).forEach((key, i) => {
           finalToggleList[key] = finalToggleList[key] || [];
@@ -94,10 +125,11 @@ export default (babel, options = {}) => {
               pos[0] <= path.node.start &&
               pos[1] >= path.node.end
             ) {
-              if (path.key === "expression") {
-                path.parentPath.remove();
-              } else {
+              t.removeComments(path.node);
+              if (!isNaN(path.key)) {
                 path.remove();
+              } else {
+                adjustNodeAndUpdate(path);
               }
             }
           });

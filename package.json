@@ -3,6 +3,10 @@
   "version": "0.1.8",
   "description": "Feature toggles helps to build features, keep code clean and separate. This is a tool for use feature toggling in a REACT web application.",
   "main": "index.js",
+  "bin": {
+    "@feature-toggles/cli": "bin/feature-toggles.js",
+    "feature-toggles": "bin/feature-toggles.js"
+  },
   "author": "Sanjay <contact@sanjaypanda.com>",
   "license": "MIT",
   "keywords": [
@@ -25,7 +29,13 @@
     "url": "https://github.com/featuretoggles/feature-toggles.git"
   },
   "dependencies": {
-    "debug": "^4.1.1"
+    "chalk": "^3.0.0",
+    "debug": "^4.1.1",
+    "execa": "^4.0.0",
+    "globby": "^11.0.0",
+    "is-git-clean": "^1.1.0",
+    "jscodeshift": "^0.7.0",
+    "meow": "^6.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.4",

@@ -4,6 +4,11 @@ featureTogglesConfig: {
 }
 */
 import React from "react";
+
+/* toggleStart(feature-10) */
+import ReactDom from "react-dom";
+/* toggleEnd(feature-10) */
+
 class Welcome extends React.Component {
   render() {
     return (
@@ -30,6 +35,12 @@ export const newComponent = () => {
       <h1>This feature is under development</h1>
       {/* toggleEnd(feature-3) */}
       <h1>You only see me, I am a full feature</h1>
+      <Welcome
+        abc="true"
+        /* toggleStart(feature-3) */
+        hello=""
+        /* toggleEnd(feature-3) */
+      />
 
       <h1>
         {
