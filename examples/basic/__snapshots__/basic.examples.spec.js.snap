@@ -105,10 +105,17 @@ export const newComponent = () => {
   return React.createElement(
     \\"div\\",
     null,
-    React.createElement(Welcome, {
-      abc: \\"true\\"
-      /* toggleStart(feature-3) */
-    }),
+    React.createElement(
+      \\"h1\\",
+      null,
+      \\"This feature is existing feature\\"
+    ),
+    React.createElement(
+      \\"h1\\",
+      null,
+      \\"You only see me, I am a full feature\\"
+    ),
+    React.createElement(Welcome, null),
     React.createElement(
       \\"h1\\",
       null,
@@ -260,7 +267,7 @@ function (_React$Component) {
 }(_react[\\"default\\"].Component);
 
 var newComponent = function newComponent() {
-  return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(Welcome, {
+  return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is existing feature\\"), _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(Welcome, {
     abc: \\"true\\"
     /* toggleStart(feature-3) */
 
@@ -347,7 +354,7 @@ function (_React$Component) {
 }(_react[\\"default\\"].Component);
 
 var newComponent = function newComponent() {
-  return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(Welcome, {
+  return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is existing feature\\"), _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(Welcome, {
     abc: \\"true\\"
     /* toggleStart(feature-3) */
 

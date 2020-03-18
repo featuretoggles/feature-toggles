@@ -18,8 +18,8 @@
   "scripts": {
     "node:debug": "babel-node ./scripts/run basic --inspect-brk=26341",
     "start": "babel-node ./scripts/run basic",
-    "build": "babel src --out-dir lib --copy-files README.md LICENSE && rm -rf ./lib/__test__",
-    "test": "jest --toggleName=ft1 --toggleDir=./examples/basic",
+    "build": "babel src --out-dir lib --copy-files README.md LICENSE && rm -rf lib/**/__test*",
+    "test": "TOGGLE_DIR=./examples/basic TOGGLE_NAME=ft1 jest",
     "lint": "eslint .",
     "prelive": "rm -rf lib && yarn run lint && yarn run test && yarn run build && babel-node ./scripts/copyPackage.js --name babel-plugin-feature-toggles  ",
     "live:babel": "npm run prelive && npm publish ./lib"
@@ -57,5 +57,15 @@
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "yargs": "^15.0.2"
+  },
+  "jest": {
+    "roots": [
+      "examples",
+      "src"
+    ],
+    "transformIgnorePatterns": [
+      "__tests__",
+      "__testfixtures__"
+    ]
   }
 }

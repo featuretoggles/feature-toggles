@@ -3,6 +3,7 @@ module.exports = function config(api) {
   api.cache(true);
   return {
     presets: [require("@babel/preset-env")],
-    plugins: ["@babel/plugin-proposal-object-rest-spread"]
+    plugins: ["@babel/plugin-proposal-object-rest-spread"],
+    ignore: ["**/__tests__/", "**/__testfixtures__/"]
   };
 };

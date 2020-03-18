@@ -18,5 +18,6 @@ module.exports = {
   plugins: ["prettier"],
   rules: {
     "prettier/prettier": ["error"]
-  }
+  },
+  ignorePatterns: ["__tests__/", "__testfixtures__/"]
 };

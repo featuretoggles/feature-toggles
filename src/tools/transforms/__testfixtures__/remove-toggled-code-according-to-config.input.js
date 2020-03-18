@@ -35,7 +35,7 @@ export const newComponent = () => {
       <h1>This feature is under development</h1>
       {/* toggleEnd(feature-3) */}
 
-      {/*toggleStart(feature-3)*/ aCondition && (
+      {/*toggleStart(feature-3)*/ abc && (
         /*toggleEnd(feature-3)*/ <h1>This feature is existing feature</h1>
       )}
 
