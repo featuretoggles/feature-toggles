@@ -18,7 +18,8 @@
   "scripts": {
     "node:debug": "babel-node ./scripts/run basic --inspect-brk=26341",
     "start": "babel-node ./scripts/run basic",
-    "build": "babel src --out-dir lib --copy-files README.md LICENSE && rm -rf lib/**/__test*",
+    "build": "./scripts/build.sh",
+    "build:only": "babel src --out-dir lib --copy-files README.md LICENSE",
     "test": "TOGGLE_DIR=./examples/basic TOGGLE_NAME=ft1 jest",
     "lint": "eslint .",
     "prelive": "rm -rf lib && yarn run lint && yarn run test && yarn run build && babel-node ./scripts/copyPackage.js --name babel-plugin-feature-toggles  ",
