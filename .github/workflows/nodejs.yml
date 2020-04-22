@@ -16,6 +16,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: setup for build
+        run: |
+          chmod +x ./scripts/build.sh
       - name: npm install, build, and test
         run: |
           yarn
