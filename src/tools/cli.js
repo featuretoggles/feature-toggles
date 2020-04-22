@@ -1,5 +1,4 @@
 const meow = require("meow");
-const path = require("path");
 import command, * as commands from "./commands";
 import { getHelp } from "./utils";
 

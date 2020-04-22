@@ -3,7 +3,7 @@ import isGitClean from "is-git-clean";
 import execa from "execa";
 import globby from "globby";
 import path from "path";
-
+import defaultConfig from "../defaultConfig";
 const jscodeshiftExecutable = require.resolve(".bin/jscodeshift");
 
 export function checkGitStatus(force) {
@@ -48,7 +48,16 @@ export function runTransform({
 
   let args = [];
 
-  const { dry, print, explicitRequire } = flags;
+  const {
+    dry,
+    print,
+    explicitRequire,
+    jscodeshift,
+    flag,
+    toggleName,
+    commentStart,
+    commentEnd
+  } = flags;
 
   if (dry) {
     args.push("--dry");
@@ -75,31 +84,17 @@ export function runTransform({
 
   args = args.concat(["--transform", transformerPath]);
 
-  if (transformer === "class") {
-    args.push("--flow=" + answers.classFlow);
-    args.push("--remove-runtime-props=" + answers.classRemoveRuntimePropTypes);
-    args.push("--pure-component=" + answers.classPureComponent);
-    args.push("--mixin-module-name=" + answers.classMixinModuleName);
+  args.push(`--commentStart=${commentStart || defaultConfig.commentStart}`);
+  args.push(`--commentEnd=${commentEnd || defaultConfig.commentStart}`);
+
+  if (toggleName) {
+    args.push(`--toggleName=${toggleName}`);
   }
-  if (transformer === "pure-render-mixin") {
-    args.push("--mixin-name=" + answers.pureRenderMixinMixinName);
-  }
-  if (transformer === "pure-component") {
-    if (answers.pureComponentUseArrows) {
-      args.push("--useArrows=true");
-    }
-    if (answers.pureComponentDestructuring) {
-      args.push("--destructuring=true");
-    }
-  }
-  if (flags.toggleName) {
-    args.push(`--toggleName=${flags.toggleName}`);
-  }
-  if (flags.flag) {
+  if (flag) {
     args.push(`--flag=true`);
   }
-  if (flags.jscodeshift) {
-    args = args.concat(flags.jscodeshift);
+  if (jscodeshift) {
+    args = args.concat(jscodeshift);
   }
 
   args = args.concat(files);

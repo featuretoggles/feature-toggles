@@ -25,14 +25,14 @@ const obj1 = {
   abc: true,
   /* toggleEnd(feature-3) */
   /* toggleStart(old-feature-3) */
-  xyz: true
+  xyz: true,
   /* toggleEnd(old-feature-3) */
 };
 
 let abc;
 abc = true;
 /* toggleStart(feature-3) */
-abc = flase;
+abc = false;
 /* toggleEnd(feature-3) */
 
 switch (abc) {
@@ -48,7 +48,7 @@ const obj = {
   /* toggleStart(feature-3) */
   abc: true,
   /* toggleEnd(feature-3) */
-  xyz: true
+  xyz: true,
 };
 obj
   /* toggleStart(feature-3) */
@@ -93,14 +93,14 @@ class Welcome
 Vue.component("button-counter", {
   data: function() {
     return {
-      count: 0
+      count: 0,
     };
   },
   template:
     /* toggleStart(feature-3) */
     '<button v-on:click="count++">You clicked me {{ count }} times.</button>' +
     /* toggleEnd(feature-3) */
-    ""
+    "",
 });
 
 export const newComponent = () => {

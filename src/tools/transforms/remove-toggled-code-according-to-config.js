@@ -2,15 +2,39 @@ export default function transformer(file, api, options) {
   const toggleName = options.toggleName;
   const flag = options.flag;
   const j = api.jscodeshift;
+  const restoreCommentForNode = (node, comments = null, process = null) => {
+    let { trailingComments, leadingComments } = comments || node;
+    if (typeof process === "function") {
+      process(trailingComments, leadingComments);
+    }
+    node.comments = (leadingComments || []).concat(trailingComments || []);
+    return node;
+  };
+  const adjustCommentBeforeRemove = node => {
+    node.replace();
+    const updatedNode =
+      node.parentPath.value[node.name] || node.parentPath.value[node.name - 1];
+    updatedNode &&
+      restoreCommentForNode(updatedNode, null, function(trailingComments) {
+        (trailingComments || []).forEach(data => {
+          data.trailing = true;
+          data.leading = false;
+        });
+      });
+  };
   const adjustNodeAndUpdate = node => {
     if (
       ["left", "right"].includes(node.name) &&
       !j.AssignmentExpression.check(node.parentPath.value)
     ) {
       if (node.name == "right") {
-        node.parentPath.replace(node.parentPath.value["left"]);
+        node.parentPath.replace(
+          restoreCommentForNode(node.parentPath.value["left"], node.value)
+        );
       } else if (node.name == "left") {
-        node.parentPath.replace(node.parentPath.value["right"]);
+        node.parentPath.replace(
+          restoreCommentForNode(node.parentPath.value["right"], node.value)
+        );
       }
     } else if (j.IfStatement.check(node.parentPath.value)) {
       if (node.name === "alternate") {
@@ -18,10 +42,17 @@ export default function transformer(file, api, options) {
       }
     } else if (["object", "property"].includes(node.name)) {
       if (node.name == "object") {
-        node.parentPath.replace(node.parentPath.value["property"]);
+        node.parentPath.replace(
+          restoreCommentForNode(node.parentPath.value["property"], node.value)
+        );
       } else if (node.name == "property") {
         if (j.CallExpression.check(node.parentPath.value["object"])) {
-          node.parentPath.replace(node.parentPath.value["object"].callee);
+          node.parentPath.replace(
+            restoreCommentForNode(
+              node.parentPath.value["object"].callee,
+              node.value
+            )
+          );
         }
       }
     }
@@ -80,7 +111,7 @@ export default function transformer(file, api, options) {
                 togglePos.end >= node.value.end
               ) {
                 if (!isNaN(node.name)) {
-                  node.replace();
+                  adjustCommentBeforeRemove(node);
                 } else {
                   adjustNodeAndUpdate(node, togglePos);
                 }
@@ -107,7 +138,7 @@ export default function transformer(file, api, options) {
 
   const root = j(file.source);
   root
-    .getTogglesComment(["toggleStart", "toggleEnd"])
+    .getTogglesComment([options.commentStart, options.commentEnd])
     .getTogglePositions()
     .removeToggleSection();
   return root.toSource();

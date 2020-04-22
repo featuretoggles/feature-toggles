@@ -1,6 +1,7 @@
 import debug from "debug";
 import { getToggles } from "./utils/getTogglesInfo";
 import { argv } from "./utils/argvUtils";
+import defaultConfig from "./defaultConfig";
 const log = debug("feature-toggles:babel-plugin");
 export default (babel, options = {}) => {
   const { types: t } = babel;
@@ -21,10 +22,7 @@ export default (babel, options = {}) => {
   const finalToggleList = {};
   const inFileConfig = "featureTogglesConfig:";
   const opt = {
-    ...{
-      commentStart: "toggleStart",
-      commentEnd: "toggleEnd"
-    },
+    ...defaultConfig,
     ...options
   };
   const adjustNodeAndUpdate = node => {
