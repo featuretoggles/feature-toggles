@@ -46,6 +46,11 @@ function run() {
       "explicit-require": {
         type: "boolean",
         default: true
+      },
+      toggleName: {
+        type: "string",
+        default: true,
+        alias: "t"
       }
     }
   };

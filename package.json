@@ -18,7 +18,7 @@
   "scripts": {
     "node:debug": "babel-node ./scripts/run basic --inspect-brk=26341",
     "start": "babel-node ./scripts/run basic",
-    "build": "./scripts/build.sh",
+    "build": "sh ./scripts/build.sh",
     "build:only": "babel src --out-dir lib --copy-files README.md LICENSE",
     "test": "TOGGLE_DIR=./examples/basic TOGGLE_NAME=ft1 jest",
     "lint": "eslint .",
