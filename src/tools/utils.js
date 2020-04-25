@@ -120,8 +120,8 @@ export function expandFilePathsIfNeeded(filesBeforeExpansion) {
     : filesBeforeExpansion;
 }
 
-export function getHelp(inputs, meowConfig) {
-  const childHelp = meowConfig[inputs[0]];
+export function getHelp(cli, meowConfig) {
+  const childHelp = meowConfig[cli.input[0]];
   if (childHelp) {
     console.log(childHelp);
   } else {

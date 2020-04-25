@@ -66,7 +66,7 @@ function run() {
     meowConfig
   );
   if (cli.flags.h || cli.flags.help) {
-    getHelp(cli.input, meowConfig.helps);
+    getHelp(cli, meowConfig.helps);
   }
   if (cli.input[0]) {
     return commands[`${cli.input[0]}Command`](cli);
