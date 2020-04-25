@@ -22,37 +22,36 @@ function run() {
   
           Examples
               $ npx feature-toggles clean ./src  --toggleConfig=prod
-          `
+          `,
     },
     autoHelp: false,
     flags: {
       flag: {
         type: "boolean",
-        default: false
+        default: false,
       },
       force: {
         type: "boolean",
         default: false,
-        alias: "f"
+        alias: "f",
       },
       dry: {
         type: "boolean",
-        default: false
+        default: false,
       },
       print: {
         type: "boolean",
-        default: false
+        default: false,
       },
       "explicit-require": {
         type: "boolean",
-        default: true
+        default: true,
       },
       toggleName: {
         type: "string",
-        default: true,
-        alias: "t"
-      }
-    }
+        alias: "t",
+      },
+    },
   };
   const cli = meow(
     `
@@ -80,5 +79,5 @@ function run() {
 }
 
 module.exports = {
-  run: run
+  run: run,
 };
