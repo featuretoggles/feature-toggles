@@ -8,6 +8,8 @@ export default function transformer(file, api, options) {
   root
     .getTogglesComment([options.commentStart, options.commentEnd])
     .getTogglePositions(toggleName)
-    .removeToggleSection(flag);
+    .removeToggleSection(flag)
+    .cleanComments()
+    .cleanEmptyJsxExpression();
   return root.toSource();
 }

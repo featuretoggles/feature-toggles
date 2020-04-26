@@ -117,6 +117,10 @@ export const toggleCommonFunction = j => {
             });
           });
       });
+      return this;
+    },
+    cleanComments: function() {
+      const { togglePosition } = this._toggleInfo;
       this.find(j.Comment).forEach(node => {
         Object.values(togglePosition).forEach(togglePosValue => {
           togglePosValue.forEach(togglePos => {
@@ -129,6 +133,14 @@ export const toggleCommonFunction = j => {
             }
           });
         });
+      });
+      return this;
+    },
+    cleanEmptyJsxExpression: function() {
+      this.find(j.JSXEmptyExpression).forEach(path => {
+        if (!(path.get("comments").value || []).length) {
+          path.parentPath.prune();
+        }
       });
       return this;
     }

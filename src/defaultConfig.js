@@ -1,4 +1,5 @@
 export default {
   commentStart: "toggleStart",
-  commentEnd: "toggleEnd"
+  commentEnd: "toggleEnd",
+  customTransformPath: "./ft-transforms"
 };

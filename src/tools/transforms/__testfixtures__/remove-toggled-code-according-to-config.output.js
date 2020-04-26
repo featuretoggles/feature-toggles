@@ -44,7 +44,7 @@ class Welcome extends Component {
   render() {
     return (
       <div>
-        {}{}
+
         <h1>You only see me, I am a full feature</h1>
         <h1>
           {
@@ -70,7 +70,7 @@ Vue.component("button-counter", {
 export const newComponent = () => {
   return (
     <div>
-      {}{}
+
       {<h1>This feature is existing feature</h1>}
       <h1>You only see me, I am a full feature</h1>
       <Welcome

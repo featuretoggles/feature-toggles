@@ -56,11 +56,10 @@ class Welcome extends React.Component {
   render() {
     return (
       <div>
-        {}
-        <h1>This feature is under development</h1>
-        {}
-        <h1>You only see me, I am a full feature</h1>
 
+        <h1>This feature is under development</h1>
+
+        <h1>You only see me, I am a full feature</h1>
         <h1>
           {
             /*toggleStart(feature-10)*/ "This feature is under development" /*toggleEnd(feature-10)*/
@@ -85,12 +84,10 @@ Vue.component("button-counter", {
 export const newComponent = () => {
   return (
     <div>
-      {}
+
       <h1>This feature is under development</h1>
-      {}
 
       {abc && <h1>This feature is existing feature</h1>}
-
       <h1>You only see me, I am a full feature</h1>
       <Welcome
         /* toggleStart(old-feature-3) */
@@ -98,7 +95,6 @@ export const newComponent = () => {
         /* toggleEnd(old-feature-3) */
         hello=""
       />
-
       <h1>
         {
           "This feature is under development"
