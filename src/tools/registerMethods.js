@@ -59,7 +59,8 @@ export const toggleCommonFunction = j => {
     getTogglesComment: function(toggleKeys = []) {
       const toggles = this.get().value.tokens.filter(data => {
         return (
-          j.Comment.check(data) && toggleKeys.find(d => data.value.includes(d))
+          j.Comment.check(data) &&
+          toggleKeys.find(d => RegExp(d, "i").test(data.value))
         );
       });
       this._toggleInfo = {
@@ -73,11 +74,11 @@ export const toggleCommonFunction = j => {
       const togglePosition = {};
       toggles.forEach(data => {
         const res = data.value.match(
-          new RegExp(`(${toggleKeys.join("|")})\\((.*)\\)`)
+          new RegExp(`(${toggleKeys.join("|")})\\((.*)\\)`, "i")
         );
         if (res[2] !== toggleName) return;
         togglePosition[res[2]] = togglePosition[res[2]] || [{}];
-        if (res[1] === toggleKeys[0]) {
+        if (RegExp(res[1], "i").test(toggleKeys[0])) {
           if (togglePosition[res[2]][togglePosition[res[2]].length - 1].start) {
             togglePosition[res[2]].push({});
           }
@@ -86,7 +87,7 @@ export const toggleCommonFunction = j => {
           togglePosition[res[2]][
             togglePosition[res[2]].length - 1
           ].startNode = data;
-        } else if (res[1] === toggleKeys[1]) {
+        } else if (RegExp(res[1], "i").test(toggleKeys[1])) {
           togglePosition[res[2]][togglePosition[res[2]].length - 1].end =
             data.end;
           togglePosition[res[2]][
