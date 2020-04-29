@@ -108,6 +108,7 @@ export const toggleCommonFunction = j => {
                 togglePos.start <= node.value.start &&
                 togglePos.end >= node.value.end
               ) {
+                if (j(node).checkParentTreeIsDeleted()) return;
                 if (!isNaN(node.name)) {
                   adjustCommentBeforeRemove(node);
                 } else {
@@ -143,6 +144,20 @@ export const toggleCommonFunction = j => {
         }
       });
       return this;
+    },
+    // Check parent tree is deleted or not
+    checkParentTreeIsDeleted: function() {
+      let path = this.get(0);
+      let deleted = false;
+      while (path.parentPath) {
+        if (path.parentPath.value) {
+          path = path.parentPath;
+        } else {
+          deleted = true;
+          break;
+        }
+      }
+      return deleted;
     }
   });
 };
