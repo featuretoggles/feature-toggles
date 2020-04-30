@@ -7,7 +7,7 @@ import featureTogglePlugin from "../../src";
 {
   const { code } = transformFileSync(`${__dirname}/src/basic.js`, {
     rootMode: "upward",
-    plugins: [[featureTogglePlugin, { dir: __dirname, toggleName: "ft1" }]]
+    plugins: [[featureTogglePlugin, { dir: __dirname, toggleConfig: "ft1" }]]
   });
   console.log(code);
 }

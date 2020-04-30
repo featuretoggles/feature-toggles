@@ -8,7 +8,7 @@ export default (babel, options = {}) => {
   const dir =
     process.env.TOGGLE_DIR || argv.toggleDir || options.dir || process.cwd();
   const defaultToggle =
-    process.env.TOGGLE_NAME || argv.toggleName || options.toggleName;
+    process.env.TOGGLE_CONFIG_NAME || argv.toggleConfig || options.toggleConfig;
   const allVisitors = Object.keys(t.VISITOR_KEYS)
     .filter(data => data !== "Program")
     .join("|");

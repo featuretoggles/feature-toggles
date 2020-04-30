@@ -1,11 +1,11 @@
 import path from "path";
 import reqAll from "./requireAll";
 import { argv } from "./argvUtils";
+import defaultConfig from "../defaultConfig";
 
-const TOGGLE_PATH = "./feature-toggles";
 export const getTheNameWithOutExtension = fileName => fileName.split(".")[0];
 export const getTheToggleFolder = () =>
-  process.env.TOGGLE_PATH || argv.togglePath || TOGGLE_PATH;
+  process.env.TOGGLE_PATH || argv.togglePath || defaultConfig.toggleConfigPath;
 export const listTogglesByFileName = (dir = __dirname) => {
   const listOfToggleConfig = reqAll({
     dirPath: dir

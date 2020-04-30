@@ -4,7 +4,7 @@
   </a>
 </p>
 <p align="center">
-  This tool is built to do feature toggling for REACT web application.
+  A feature toggles solution for javascript applications.
 </p>
 <p align="center">
     <a href="https://www.npmjs.com/package/babel-plugin-feature-toggles"><img alt="Babel plugin Downloads" src="https://img.shields.io/npm/dm/babel-plugin-feature-toggles.svg?maxAge=43200&label=Babel%20plugin%20downloads"></a>
@@ -13,21 +13,23 @@
     <a href="https://github.com/featuretoggles/feature-toggles"><img alt="Github CI" src="https://github.com/featuretoggles/feature-toggles/workflows/Node%20CI/badge.svg"></a>
 </p>
 
-# Feature Toggling the best way (Build time)
+# Feature Toggles
 
-Currently, This is available as babel plugin.
+Currently, This is available as a babel plugin.
 
-> Are you struggling with the maintenance of an unfinished feature?
-> Are you tired of long-running branches?
-> Do you want to implement Continuous Delivery and Trunk Based Development?
+> How to maintain existing and unfinished feature?
+> How to get rid of long-lived branches?
+> How to manage single codebase used by multiple teams?
+
+More details why you need feature toggles: https://sanjaypanda.com/blogs/feature-toggles-ideas-and-uses/
 
 ## Benefits
 
-- Best for trunk-based development
-- No Long-running branches
-- No Merge hell
-- No release branch
-- Make product delivery faster
+- Best for trunk-based development.
+- No more Long-lived branches.
+- No Merge hell.
+- No need of removing unfinished code while releasing, just toggle it off.
+- Make product delivery faster.
 - No release time overhead.
 - Increase team collaboration.
 
@@ -41,12 +43,9 @@ Currently, This is available as babel plugin.
 
 - Establish the right mindset in the team
 - One feature one toggle approach
-- Automation tools for toggle off and toggle on testing
-- Powerful CI/CD pipeline
+- Automation testing tools for toggle off and toggle on testing
+- CI/CD pipeline
 - Feature toggle removal tool (solves Tech dept)
-- A visual representation of the toggles inside the project folder
-- Story and feature-toggle mapping in the story
-
 
 ## Getting Started
 
@@ -61,40 +60,134 @@ Currently, This is available as babel plugin.
 ### STEP 2: (add to .babelrc)
 
 ```js
-    {
-        plugins: [
-            "feature-toggles"
-            // Always add this on the first position 
-            // (Otherwise the plugin might  not work)
-        ]
-    }
-
+{
+  plugins: [
+    "feature-toggles",
+    // Always add this on the first position
+    // (Otherwise the plugin might  not work)
+  ];
+}
 ```
 
 Default config:
 
 **commentStart:** "toggleStart" \
 **commentEnd:** "toggleEnd" \
-**dir:** "</root path/>" \
-**toggleName:** "" (If nothing is passed then the toggle will not apply)
+**dir:** "." \
+**toggleConfig:** "" (If nothing is passed then the toggle will not apply)
 
 ### STEP 3: (Setting up feature toggle config)
 
-A folder name `./feature-toggles/` will be present at the root of the application. Different configuration of toggles will be available as `[name].json` containing an array of feature-toggle  
+1. Create a directory name `./toggle-configs/` in the root of your application.
 
-`name` can be : (Below are the convention)
+2. Add config files like `[name].json`. (e.g `default.json`)
 
-    - Feature team name (This is used for the team to separately build feature in the application)
-        | - ft1.json
-        | - ft2.json
-    - Release name toggle (This feature is for release config)
-        | - prod.json
-        | - <name for your release>.json
-> *Short-form of any name will be a good fit to create above file (e.g. Feature Team 1 = ft1)*
+3. In the config file add the list of flags. (e.g `[feature-1, feature-2]`)
+
+4. The flags are each related to one particular feature. This flag helps to show and hide the features.
+
+```js
+// Sample Toggle config
+./toggle-configs
+    | - ft1.json // Config files
+         | - feature-3 // flag name
+    | - ft2.json
+    |    | - feature-4 // flag name
+    | - prod.json
+         | - feature-1 // flag name
+         | - feature-2 // flag name
+
+// Config files: Represent of one team or a release
+// flag name: represent of one feature
 
 ```
-// Toggle config
-./feature-toggles
+
+### STEP 4: How to use in code
+
+Instead of using a traditional `if statement` to show hide the feature over run time, we use a unique commented petters of solving the issue.
+
+> **Why commented pattern?**
+>
+> 1. Traditional `if-else` will be difficult to identify between feature toggle and normal condition.
+> 2. `if-else` implementation works well with run-time feature toggle, but we want something which removes unfinished code build time.
+> 3. Another important thought, we want a way which worker for (`Valine Javascript and React/Vue/Angular Components and Function arguments`) verity of places similar way.
+> 4. Also cleaning the tradition `if-else` is not easy, so we want something easy removable from code.
+
+feature toggle has `toggleStart` and `toggleEnd` command with a flag name will ensure the code will be Toggle On or Toggle Off by the config of choice.
+**Sample codes:**
+
+with _JS_
+
+```js
+//Input
+function someFunction() {
+  //toggleStart(feature-1)
+  console.log("This is a new feature!!");
+  //toggleEnd(feature-1)
+
+  console.log("I was there already");
+}
+
+//OutPut
+//if *feature-1* is part of toggled off
+function someFunction() {
+  console.log("I was there already");
+}
+```
+
+Sample code with _React JSX_
+
+```js
+//Input
+export const MyReactComponent = () => {
+  return (
+    <>
+      {/*toggleStart(feature-1)*/}
+      <h1>This is a new feature!</h1>
+      {/*toggleEnd(feature-1)*/}
+      <h2>I was there already</h2>
+    </>
+  );
+};
+```
+
+```js
+//Output
+// if *feature-1* is part of toggled off
+export const MyReactComponent = () => {
+  return (
+    <>
+      <h2>I was there already</h2>
+    </>
+  );
+};
+```
+
+for more example: https://github.com/pandasanjay/feature-toggles/tree/master/examples/basic
+
+### STEP 5: How to build your application using feature-toggle?
+
+we should tell the babel plugin to run by "toggleConfig".
+
+_You can do that couple of ways:_
+
+Pass as _argv_ to any command
+
+```sh
+    yarn start --toggleConfig=ft1
+```
+
+Pass as _env_ variable
+
+```sh
+   TOGGLE_CONFIG_NAME=ft1 yarn start
+```
+
+## How this works?
+
+```
+// Sample Toggle config
+./toggle-configs
     | - ft1.json
          | - feature-3
     | - ft2.json
@@ -105,82 +198,15 @@ A folder name `./feature-toggles/` will be present at the root of the applicatio
 
 ```
 
-### STEP 4: How to use in code
+Please see the above sample config path for reference.
 
-This is kind of unique about the tool, here this tool uses the comment to do the feature toggles.
+1. When we select one config i.e `ft1.json`. (using command `yarn start --toggleConfig=ft1`)
 
-Sample code with *JS*
+2. First, this will combine all the `toggleflag` from all the config files.
 
-```js
+3. Then turn on the flags which available in `ft1.json` config file. (e.g `feature-3` flag used in the code will not remove (Toggle On) and others will be toggled off.)
 
-//Input
-function someFunction() {
-    //toggleStart(feature-1)
-    console.log("This is a new feature!!");
-    //toggleEnd(feature-1)
-
-    console.log("I was there already");
-}
-
-//OutPut
-//if *feature-1* is part of toggled off
-function someFunction() {
-    console.log("I was there already");
-}
-```
-
-Sample code with *React JSX*
-
-```js
-//Input
-export const MyReactComponent = () => {
-    return (
-        <>
-            {/*toggleStart(feature-1)*/}
-                <h1>This is a new feature!</h1>
-            {/*toggleEnd(feature-1)*/}
-            <h2>I was there already</h2>
-        </>
-    )
-};
-```
-
-```js
-//Output
-// if *feature-1* is part of toggled off
-export const MyReactComponent = () => {
-    return (
-        <>
-            <h2>I was there already</h2>
-        </>
-    )
-}
-```
-for more example: https://github.com/pandasanjay/feature-toggles/tree/master/examples/basic
-
-### STEP 5: How to build your application using feature-toggle?
-
-As above mentioned each file treated as a team or releases, so we should tell the babel plugin to run by "toggleName".
-
-*You can do that couple of ways:*
-
-Pass as *argv* to any command
-
-```sh
-    yarn start --toggleName=ft1
-```
-
-Pass as *env* variable
-
-```sh
-   TOGGLE_NAME=ft1 yarn start
-```
-
-## How this works?
-
-All the feature toggling work depends
-
-e.g if selected `ft1` (command used `yarn start --toggleName=ft1`) then this will read all the config and generate object like below.
+Follow the below example will help you understand more.
 
 ```js
 
@@ -188,21 +214,21 @@ e.g if selected `ft1` (command used `yarn start --toggleName=ft1`) then this wil
 // true: will show the section of feature
 // false: will hide the section of feature
 {
-    //yarn start --toggleName=ft1
+    //yarn start --toggleConfig=ft1
     ft1: {
-        "feature-3": true, 
+        "feature-3": true,
         "feature-4": false,
         "feature-1": false,
         "feature-2": false
     },
-    //yarn start --toggleName=ft2
+    //yarn start --toggleConfig=ft2
     ft2: {
         "feature-3": false,
         "feature-4": true,
         "feature-1": false,
         "feature-2": false
     },
-    //yarn start --toggleName=prod
+    //yarn start --toggleConfig=prod
     prod: {
         "feature-3": false,
         "feature-4": false,
@@ -212,11 +238,29 @@ e.g if selected `ft1` (command used `yarn start --toggleName=ft1`) then this wil
 
 }
 ```
+
+## Great Power comes with responsibility.
+
+Here is the list of resp
+
+### One feature one toggle flag
+
+### Remove toggle flags from code
+
+```sh
+# Remove the code wrapped with toggle "feature-3"
+feature-toggles clean --toggleName=feature-3
+```
+
+```sh
+# Remove the comment wrapped with toggle "feature-3"
+feature-toggles clean --toggleName=feature-3 --flag
+```
+
 ## Try it
 
 [Example 1 - Basic example](https://runkit.com/pandasanjay/runkit-npm-babel-plugin-feature-toggles)
 
 [Example 1 - React Component example](https://runkit.com/pandasanjay/babel-component)
-
 
 Credits : [@paulpruteanu](https://github.com/paulpruteanu)

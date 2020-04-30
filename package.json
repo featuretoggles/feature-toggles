@@ -1,25 +1,42 @@
 {
   "name": "feature-toggles",
-  "version": "0.1.8",
-  "description": "Feature toggles helps to build features, keep code clean and separate. This is a tool for use feature toggling in a REACT web application.",
+  "version": "0.2.0",
+  "description": "A feature toggles solution for javascript applications.",
   "main": "index.js",
   "bin": {
     "feature-toggles": "./bin/feature-toggles.js"
   },
-  "author": "Sanjay <contact@sanjaypanda.com>",
+  "author": {
+    "name": "Sanjay Panda",
+    "email": "contact@sanjaypanda.com",
+    "url": "sanjaypanda.com"
+  },
   "license": "MIT",
   "keywords": [
     "babel-plugin",
     "feature-toggles",
     "Toggling Best way",
-    "Build Time Feature Toggle"
+    "Build Time Feature Toggle",
+    "toggle off",
+    "toggle on"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "files": [
+    "index.js",
+    "babel-plugin-feature-toggles.js",
+    "defaultConfig.js",
+    "bin",
+    "tools",
+    "utils"
   ],
   "scripts": {
     "node:debug": "babel-node ./scripts/run basic --inspect-brk=26341",
     "start": "babel-node ./scripts/run basic",
     "build": "sh ./scripts/build.sh",
     "build:only": "babel src --out-dir lib --copy-files README.md LICENSE",
-    "test": "TOGGLE_DIR=./examples/basic TOGGLE_NAME=ft1 jest",
+    "test": "TOGGLE_DIR=./examples/basic TOGGLE_CONFIG_NAME=ft1 jest",
     "lint": "eslint .",
     "prelive": "rm -rf lib && yarn run lint && yarn run test && yarn run build && babel-node ./scripts/copyPackage.js --name babel-plugin-feature-toggles  ",
     "live:babel": "npm run prelive && npm publish ./lib"
