@@ -4,8 +4,7 @@
   "description": "Feature toggles helps to build features, keep code clean and separate. This is a tool for use feature toggling in a REACT web application.",
   "main": "index.js",
   "bin": {
-    "@feature-toggles/cli": "bin/feature-toggles.js",
-    "feature-toggles": "bin/feature-toggles.js"
+    "feature-toggles": "./bin/feature-toggles.js"
   },
   "author": "Sanjay <contact@sanjaypanda.com>",
   "license": "MIT",
