@@ -122,7 +122,7 @@ export const toggleCommonFunction = j => {
       return this;
     },
     cleanComments: function() {
-      const { togglePosition } = this._toggleInfo;
+      const { togglePosition, toggleKeys } = this._toggleInfo;
       this.find(j.Comment).forEach(node => {
         Object.values(togglePosition).forEach(togglePosValue => {
           togglePosValue.forEach(togglePos => {
@@ -131,7 +131,13 @@ export const toggleCommonFunction = j => {
               togglePos.start <= node.value.start &&
               togglePos.end >= node.value.end
             ) {
-              node.replace();
+              if (
+                RegExp(`(${toggleKeys.join("|")})\\((.*)\\)`, "i").test(
+                  node.value.value
+                )
+              ) {
+                node.replace();
+              }
             }
           });
         });
