@@ -17,12 +17,12 @@
 
 Currently, This is available as a babel plugin.
 
-> ### Below list problems stopping you to productive, than you are at right place.
+> ### The list of problems stopping you to productive, then you are at right place.
 >
 > 1. How to maintain both existing and unfinished feature?
 > 2. How to get rid of long-lived branches?
 > 3. How to manage single codebase used by multiple teams?
-> 4. How to maintain production ready master branch?
+> 4. How to maintain a production-ready master branch?
 
 More details why you need feature toggles: https://sanjaypanda.com/blogs/feature-toggles-ideas-and-uses/
 
@@ -112,7 +112,7 @@ Instead of using a traditional `if statement` to show hide the feature over run 
 > **Why commented pattern?**
 >
 > 1. Traditional `if-else` will be difficult to identify between feature toggle and normal condition.
-> 2. `if-else` implementation works well with run-time feature toggle, but we want something which removes unfinished code build time.
+> 2. `if-else` implementation works well with a run-time feature toggle, but we want something which removes unfinished code build time.
 > 3. Another important thought, we want a way which worker for (`Valine Javascript and React/Vue/Angular Components and Function arguments`) verity of places similar way.
 > 4. Also cleaning the traditional `if-else` is not easy, so we want something easy removable from code.
 
@@ -244,13 +244,13 @@ Follow the below example will help you understand more.
 
 ## Great Power comes with responsibility.
 
-Here is the list of responsibility.
+Here is a list of responsibilities.
 
 1. #### One feature one toggle flag
 
    ```
-   - Given you are in a scrum team working for a e-commerce product. And now team get a new feature requirement to build a new checkout page for your application and the work is divided between 3 developer means 3 stories.
-   - For all these 3 story code will be warped by one toggle flag.
+   - Given you are in a scrum team working for an e-commerce product. And now team gets a new feature requirement to build a new checkout page for your application and the work is divided between 3 developer means 3 stories.
+   - For all these 3 story codes will be warped by one toggle flag.
    - Which will help you to reduce toggle and not get messy.
    ```
 
