@@ -34,13 +34,23 @@ const obj = {
   xyz: true
 };
 obj
-  .func()
   .func1();
 if (abc &&
 obj.abc) {
   console.log();
 }
-class Welcome extends Component {
+{
+  console.log("hello2");
+  console.log("hello1");
+}
+
+console.log("next");
+
+{
+  console.log("hello1");
+}
+
+class Welcome {
   render() {
     return (
       <div>
@@ -60,11 +70,11 @@ class Welcome extends Component {
 Vue.component("button-counter", {
   data: function() {
     return {
-      count: 0
+      count: 0,
     };
   },
   template:
-    ""
+    "",
 });
 
 export const newComponent = () => {

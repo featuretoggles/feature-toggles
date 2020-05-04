@@ -1,5 +1,4 @@
-import debug from "debug";
-const log = debug("feature-toggles:registerMethods");
+const log = () => {};
 const checkPosition = (node, togglePos) => {
   log("checkPosition| Node %o |\n toggle positions %o", node.value, togglePos);
   return (
@@ -194,3 +193,21 @@ export const toggleCommonFunction = (j) => {
     },
   });
 };
+
+export default function transformer(file, api, options) {
+  const toggleName = options.toggleName || "feature-3";
+  const flag = options.flag;
+  const j = api.jscodeshift;
+  j.use(toggleCommonFunction);
+  const root = j(file.source);
+  root
+    .getTogglesComment([
+      options.commentStart || "toggleStart",
+      options.commentEnd || "toggleEnd",
+    ])
+    .getTogglePositions(toggleName)
+    .removeToggleSection(flag)
+    .cleanComments()
+    .cleanEmptyJsxExpression();
+  return root.toSource();
+}

@@ -25,7 +25,7 @@ const obj1 = {
   abc: true,
   /* toggleEnd(feature-3) */
   /* toggleStart(old-feature-3) */
-  xyz: true
+  xyz: true,
   /* toggleEnd(old-feature-3) */
 };
 
@@ -48,7 +48,7 @@ const obj = {
   /* toggleStart(feature-3) */
   abc: true,
   /* toggleEnd(feature-3) */
-  xyz: true
+  xyz: true,
 };
 obj
   /* toggleStart(feature-3) */
@@ -69,6 +69,30 @@ else if (true) {
   console.log();
 }
 //toggleEnd(feature-3)
+
+//toggleStart(feature-3)
+if (obj.abc) {
+  console.log("hello");
+}
+//toggleEnd(feature-3)
+else {
+  console.log("hello2");
+  console.log("hello1");
+}
+
+//toggleStart(feature-3)
+if (obj.abc)
+  //toggleEnd(feature-3)
+  console.log("next");
+
+//toggleStart(feature-3)
+if (obj.abc) {
+  console.log("hello");
+} else {
+  //toggleEnd(feature-3)
+  console.log("hello1");
+}
+
 class Welcome
   /* toggleStart(feature-3) */ extends React.Component /* toggleEnd(feature-3) */ {
   render() {
@@ -93,14 +117,14 @@ class Welcome
 Vue.component("button-counter", {
   data: function() {
     return {
-      count: 0
+      count: 0,
     };
   },
   template:
     /* toggleStart(feature-3) */
     '<button v-on:click="count++">You clicked me {{ count }} times.</button>' +
     /* toggleEnd(feature-3) */
-    ""
+    "",
 });
 
 export const newComponent = () => {

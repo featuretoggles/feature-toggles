@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BABEL6 - Basic function 1`] = `
+"// \`
+// If \\"ft1\\" toggle is used to build the application:
+// {
+//     \\"feature-2\\" : true,
+//     \\"feature-3\\" : false // Any code wrapped with feature-3 will be removed
+// }
+// \`
+
+/**
+ * If you wan to reassign a variable
+ * please use below toggles
+ */
+let abc;
+abc = true;
+/* toggleStart(feature-3) */
+
+/* toggleEnd(feature-3) */
+
+/**
+ * SWITCH CASE
+ */
+switch (abc) {
+  case true:
+    console.log(\\"Hello\\");
+  /* toggleStart(feature-3) */
+}
+
+/**
+ * Inside Object
+ */
+const obj = {
+  /* toggleEnd(feature-3) */
+  xyz: true
+};
+
+/**
+ * Object Member Function
+ */
+obj
+/* toggleStart(feature-3) */
+
+/* toggleEnd(feature-3) */
+.func1();
+
+/**
+ * If else condition
+ */
+
+if (
+//toggleEnd(feature-3)
+obj.abc) {
+  console.log();
+}
+//toggleStart(feature-3)
+else {}
+//toggleEnd(feature-3)
+
+function basic() {
+  // toggleEnd(feature-3)
+
+  // The below toggle is not available in the toggle list so that will not removed by toggle
+  // toggleStart(feature-10)
+  console.log(\\"This will not remove\\");
+  // toggleEnd(feature-10)
+}
+
+export default {
+  basic
+};"
+`;
+
+exports[`BABEL6 - React component function with Argv 1`] = `
+"/*
+featureTogglesConfig: {
+  \\"feature-10\\": false
+}
+*/
+import React from \\"react\\";
+
+/* toggleStart(feature-10) */
+
+/* toggleEnd(feature-10) */
+
+class Welcome extends React.Component {
+  render() {
+    return React.createElement(
+      \\"div\\",
+      null,
+      React.createElement(
+        \\"h1\\",
+        null,
+        \\"You only see me, I am a full feature\\"
+      ),
+      React.createElement(
+        \\"h1\\",
+        null,
+        \\"This will show\\"
+      )
+    );
+  }
+}
+export const newComponent = () => {
+  return React.createElement(
+    \\"div\\",
+    null,
+    React.createElement(
+      \\"h1\\",
+      null,
+      \\"This feature is existing feature\\"
+    ),
+    React.createElement(
+      \\"h1\\",
+      null,
+      \\"You only see me, I am a full feature\\"
+    ),
+    React.createElement(Welcome, {
+      abc: \\"true\\"
+      /* toggleStart(feature-3) */
+    }),
+    React.createElement(
+      \\"h1\\",
+      null,
+      \\"This will show\\"
+    )
+  );
+};
+export default Welcome;"
+`;
+
+exports[`BABEL6 - Vue component function with Argv 1`] = `
+"let template;
+/**
+ * When we want to add a new feature we should wrap the old code with a \\"old-\\" prefix toggleName.
+ * This will be easy to remove code automatically using codemod.
+ */
+/* toggleStart(old-feature-3) */
+template = \\"<a> Old code </a>\\";
+/* toggleEnd(old-feature-3) */
+/* toggleStart(feature-3) */
+
+/* toggleEnd(feature-3) */
+Vue.component(\\"button-counter\\", {
+  data: function () {
+    return {
+      count: 0
+    };
+  },
+  template
+});"
+`;

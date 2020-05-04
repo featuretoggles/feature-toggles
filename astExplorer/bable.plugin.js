@@ -1,13 +1,19 @@
-import debug from "debug";
-import { getToggles } from "./utils/getTogglesInfo";
-import { argv } from "./utils/argvUtils";
-import defaultConfig from "./defaultConfig";
-const log = debug("feature-toggles:babel-plugin");
+process.env = {};
+process.cwa = () => {};
+const argv = {
+  toggleName: "feature-3",
+};
+const defaultConfig = {
+  commentStart: "toggleStart",
+  commentEnd: "toggleEnd",
+  toggleConfigPath: "toggle-configs",
+  customTransformPath: "./ft-transforms",
+};
+
+const log = () => {};
 export default (babel, options = {}) => {
   const { types: t } = babel;
-
-  const dir =
-    process.env.TOGGLE_DIR || argv.toggleDir || options.dir || process.cwd();
+  const dir = process.env.TOGGLE_DIR || argv.toggleDir || options.dir;
   const defaultToggle =
     process.env.TOGGLE_CONFIG_NAME || argv.toggleConfig || options.toggleConfig;
   const allVisitors = Object.keys(t.VISITOR_KEYS)
@@ -19,6 +25,8 @@ export default (babel, options = {}) => {
     togglesList = getToggles(dir);
     toggles = togglesList[defaultToggle];
   }
+  const listToggleName = {};
+  const finalToggleList = {};
   const inFileConfig = "featureTogglesConfig:";
   const opt = {
     ...defaultConfig,
@@ -59,6 +67,7 @@ export default (babel, options = {}) => {
           node.parentPath.replaceWith(node.parent["property"]);
         }
       } else if (node.key == "property") {
+        console.log(node, node.parent["object"]);
         if (node.parent["object"]) {
           if (t.isCallExpression(node.parent["object"])) {
             node.parentPath.replaceWith(node.parent["object"].callee);
@@ -74,9 +83,7 @@ export default (babel, options = {}) => {
   return {
     name: "feature-toggles", // not required
     visitor: {
-      Program(path, state) {
-        const listToggleName = {};
-        const finalToggleList = {};
+      Program(path) {
         path.container.comments.forEach((data) => {
           if (data.value.indexOf(inFileConfig) !== -1) {
             try {
@@ -128,19 +135,18 @@ export default (babel, options = {}) => {
           while (listToggleName[key].length)
             finalToggleList[key].push(listToggleName[key].splice(0, 2));
         });
-        if (log.enabled) {
-          Object.keys(finalToggleList).forEach((name) => {
-            log(`"${name}" Applied at position %o`, finalToggleList[name]);
-          });
-        }
-        state.finalToggleList = finalToggleList;
+
+        Object.keys(finalToggleList).forEach((name) => {
+          log(`"${name}" Applied at position %o`, finalToggleList[name]);
+        });
       },
-      [allVisitors](path, { finalToggleList }) {
+      [allVisitors](path) {
         Object.values(finalToggleList).forEach((data) => {
           data.forEach((pos) => {
             if (checkPosition(path, pos)) {
               t.removeComments(path.node);
               if (!isNaN(path.key)) {
+                console.log(path, path.key);
                 path.remove();
               } else {
                 adjustNodeAndUpdate(path, pos);
