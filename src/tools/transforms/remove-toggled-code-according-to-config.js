@@ -1,6 +1,6 @@
 import { toggleCommonFunction } from "../registerMethods";
 export default function transformer(file, api, options) {
-  const toggleName = options.toggleName;
+  const toggleName = options.toggleFlagName;
   const flag = options.flag;
   const j = api.jscodeshift;
   j.use(toggleCommonFunction);

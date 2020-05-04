@@ -7,10 +7,10 @@ function run() {
     helps: {
       clean: `
           Usage:
-              $ npx feature-toggles clean <path> <...options>
+              $ ./node_modules/.bin/feature-toggles clean <path> <...options>
               path                     Files or directory to transform. Can be a glob like src/**.test.js
           Options:
-              -t, --toggleName      Toggle flag name
+              -t, --toggleFlagName       Toggle flag name
                   --flag            Only remove comment condition
   
           Other Options:
@@ -21,37 +21,37 @@ function run() {
               --jscodeshift            (Advanced) Pass options directly to jscodeshift
   
           Examples
-              $ npx feature-toggles clean ./src  --toggleConfig=prod
-          `
+              $ ./node_modules/.bin/feature-toggles clean ./src  --toggleFlagName=feature-3
+          `,
     },
     autoHelp: false,
     flags: {
       flag: {
         type: "boolean",
-        default: false
+        default: false,
       },
       force: {
         type: "boolean",
         default: false,
-        alias: "f"
+        alias: "f",
       },
       dry: {
         type: "boolean",
-        default: false
+        default: false,
       },
       print: {
         type: "boolean",
-        default: false
+        default: false,
       },
       "explicit-require": {
         type: "boolean",
-        default: true
+        default: true,
       },
-      toggleName: {
+      toggleFlagName: {
         type: "string",
-        alias: "t"
-      }
-    }
+        alias: "t",
+      },
+    },
   };
   const cli = meow(
     `
@@ -79,5 +79,5 @@ function run() {
 }
 
 module.exports = {
-  run: run
+  run: run,
 };

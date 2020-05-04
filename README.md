@@ -17,9 +17,12 @@
 
 Currently, This is available as a babel plugin.
 
-> How to maintain existing and unfinished feature?
-> How to get rid of long-lived branches?
-> How to manage single codebase used by multiple teams?
+> ### Below list problems stopping you to productive, than you are at right place.
+>
+> 1. How to maintain both existing and unfinished feature?
+> 2. How to get rid of long-lived branches?
+> 3. How to manage single codebase used by multiple teams?
+> 4. How to maintain production ready master branch?
 
 More details why you need feature toggles: https://sanjaypanda.com/blogs/feature-toggles-ideas-and-uses/
 
@@ -57,7 +60,7 @@ More details why you need feature toggles: https://sanjaypanda.com/blogs/feature
     npm install babel-plugin-feature-toggles --save-dev
 ```
 
-### STEP 2: (add to .babelrc)
+### STEP 2: (add to .babelrc or babel.config.json)
 
 ```js
 {
@@ -80,7 +83,7 @@ Default config:
 
 1. Create a directory name `./toggle-configs/` in the root of your application.
 
-2. Add config files like `[name].json`. (e.g `default.json`)
+2. Add config files like `[name].json`. (e.g `prod.json`)
 
 3. In the config file add the list of flags. (e.g `[feature-1, feature-2]`)
 
@@ -102,7 +105,7 @@ Default config:
 
 ```
 
-### STEP 4: How to use in code
+### STEP 4: How to feature toggle used in code
 
 Instead of using a traditional `if statement` to show hide the feature over run time, we use a unique commented petters of solving the issue.
 
@@ -111,7 +114,7 @@ Instead of using a traditional `if statement` to show hide the feature over run 
 > 1. Traditional `if-else` will be difficult to identify between feature toggle and normal condition.
 > 2. `if-else` implementation works well with run-time feature toggle, but we want something which removes unfinished code build time.
 > 3. Another important thought, we want a way which worker for (`Valine Javascript and React/Vue/Angular Components and Function arguments`) verity of places similar way.
-> 4. Also cleaning the tradition `if-else` is not easy, so we want something easy removable from code.
+> 4. Also cleaning the traditional `if-else` is not easy, so we want something easy removable from code.
 
 feature toggle has `toggleStart` and `toggleEnd` command with a flag name will ensure the code will be Toggle On or Toggle Off by the config of choice.
 **Sample codes:**
@@ -241,20 +244,49 @@ Follow the below example will help you understand more.
 
 ## Great Power comes with responsibility.
 
-Here is the list of resp
+Here is the list of responsibility.
 
-### One feature one toggle flag
+1. #### One feature one toggle flag
 
-### Remove toggle flags from code
+   ```
+   - Given you are in a scrum team working for a e-commerce product. And now team get a new feature requirement to build a new checkout page for your application and the work is divided between 3 developer means 3 stories.
+   - For all these 3 story code will be warped by one toggle flag.
+   - Which will help you to reduce toggle and not get messy.
+   ```
+
+2. #### Remove toggle flags from code.
 
 ```sh
 # Remove the code wrapped with toggle "feature-3"
-feature-toggles clean --toggleName=feature-3
+./node_modules/.bin/feature-toggles clean --toggleName=feature-3
 ```
 
 ```sh
 # Remove the comment wrapped with toggle "feature-3"
-feature-toggles clean --toggleName=feature-3 --flag
+./node_modules/.bin/feature-toggles clean --toggleName=feature-3 --flag
+```
+
+```sh
+# For more option
+./node_modules/.bin/feature-toggles clean --help
+Usage:
+    $ ./node_modules/.bin/feature-toggles clean <path> <...options>
+    path                     Files or directory to transform. Can be a glob like src/**.test.js
+    Options:
+        -t, --toggleFlagName       Toggle flag name
+            --flag                 Only remove comment condition
+
+    Other Options:
+        --force, -f              Bypass Git safety checks and forcibly run codemods
+        --dry                    Dry run (no changes are made to files)
+        --print                  Print transformed files to your terminal
+        --explicit-require       Transform only if React is imported in the file (default: true)
+        --jscodeshift            (Advanced) Pass options directly to jscodeshift
+
+    Examples
+        $ ./node_modules/.bin/feature-toggles clean ./src  --toggleFlagName=feature-3
+
+
 ```
 
 ## Try it
