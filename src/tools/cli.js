@@ -22,36 +22,36 @@ function run() {
   
           Examples
               $ ./node_modules/.bin/feature-toggles clean ./src  --toggleFlagName=feature-3
-          `,
+          `
     },
     autoHelp: false,
     flags: {
       flag: {
         type: "boolean",
-        default: false,
+        default: false
       },
       force: {
         type: "boolean",
         default: false,
-        alias: "f",
+        alias: "f"
       },
       dry: {
         type: "boolean",
-        default: false,
+        default: false
       },
       print: {
         type: "boolean",
-        default: false,
+        default: false
       },
       "explicit-require": {
         type: "boolean",
-        default: true,
+        default: true
       },
       toggleFlagName: {
         type: "string",
-        alias: "t",
-      },
-    },
+        alias: "t"
+      }
+    }
   };
   const cli = meow(
     `
@@ -79,5 +79,5 @@ function run() {
 }
 
 module.exports = {
-  run: run,
+  run: run
 };

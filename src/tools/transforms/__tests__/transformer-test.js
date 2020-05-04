@@ -21,7 +21,7 @@ const fixtureOut = fs.readFileSync(
   }
 );
 const transformOptions = {
-  toggleName: "feature-3",
+  toggleFlagName: "feature-3",
   commentStart: "toggleStart",
   commentEnd: "toggleEnd",
 };

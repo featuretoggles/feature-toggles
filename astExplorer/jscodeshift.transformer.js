@@ -7,7 +7,7 @@ const checkPosition = (node, togglePos) => {
     togglePos.end >= node.value.end
   );
 };
-export const toggleCommonFunction = (j) => {
+export const toggleCommonFunction = j => {
   const restoreCommentForNode = (node, comments = null, process = null) => {
     let { trailingComments, leadingComments } = comments || node;
     if (typeof process === "function") {
@@ -16,7 +16,7 @@ export const toggleCommonFunction = (j) => {
     node.comments = (leadingComments || []).concat(trailingComments || []);
     return node;
   };
-  const adjustCommentBeforeRemove = (node) => {
+  const adjustCommentBeforeRemove = node => {
     const nodeType = node.value.type;
     node.prune();
     if (["JSXAttribute"].indexOf(nodeType) !== -1) {
@@ -25,7 +25,7 @@ export const toggleCommonFunction = (j) => {
         node.parentPath.value[node.name - 1];
       updatedNode &&
         restoreCommentForNode(updatedNode, null, function(trailingComments) {
-          (trailingComments || []).forEach((data) => {
+          (trailingComments || []).forEach(data => {
             data.trailing = true;
             data.leading = false;
           });
@@ -88,22 +88,22 @@ export const toggleCommonFunction = (j) => {
 
   j.registerMethods({
     getTogglesComment: function(toggleKeys = []) {
-      const toggles = this.get().value.tokens.filter((data) => {
+      const toggles = this.get().value.tokens.filter(data => {
         return (
           j.Comment.check(data) &&
-          toggleKeys.find((d) => RegExp(d, "i").test(data.value))
+          toggleKeys.find(d => RegExp(d, "i").test(data.value))
         );
       });
       this._toggleInfo = {
         toggleKeys,
-        toggles,
+        toggles
       };
       return this;
     },
     getTogglePositions: function(toggleName) {
       const { toggleKeys, toggles } = this._toggleInfo;
       const togglePosition = {};
-      toggles.forEach((data) => {
+      toggles.forEach(data => {
         const res = data.value.match(
           new RegExp(`(${toggleKeys.join("|")})\\((.*)\\)`, "i")
         );
@@ -131,10 +131,10 @@ export const toggleCommonFunction = (j) => {
     },
     removeToggleSection: function(flag) {
       const { togglePosition } = this._toggleInfo;
-      this.find(j.Node).forEach((node) => {
+      this.find(j.Node).forEach(node => {
         !flag &&
-          Object.values(togglePosition).forEach((togglePosValue) => {
-            togglePosValue.forEach((togglePos) => {
+          Object.values(togglePosition).forEach(togglePosValue => {
+            togglePosValue.forEach(togglePos => {
               if (checkPosition(node, togglePos)) {
                 if (togglePos.visitedOnce && j(node).checkParentTreeIsDeleted())
                   return;
@@ -152,9 +152,9 @@ export const toggleCommonFunction = (j) => {
     },
     cleanComments: function() {
       const { togglePosition, toggleKeys } = this._toggleInfo;
-      this.find(j.Comment).forEach((node) => {
-        Object.values(togglePosition).forEach((togglePosValue) => {
-          togglePosValue.forEach((togglePos) => {
+      this.find(j.Comment).forEach(node => {
+        Object.values(togglePosition).forEach(togglePosValue => {
+          togglePosValue.forEach(togglePos => {
             if (checkPosition(node, togglePos)) {
               if (
                 RegExp(`(${toggleKeys.join("|")})\\((.*)\\)`, "i").test(
@@ -170,7 +170,7 @@ export const toggleCommonFunction = (j) => {
       return this;
     },
     cleanEmptyJsxExpression: function() {
-      this.find(j.JSXEmptyExpression).forEach((path) => {
+      this.find(j.JSXEmptyExpression).forEach(path => {
         if (!(path.get("comments").value || []).length) {
           path.parentPath.prune();
         }
@@ -190,7 +190,7 @@ export const toggleCommonFunction = (j) => {
         }
       }
       return deleted;
-    },
+    }
   });
 };
 
@@ -203,7 +203,7 @@ export default function transformer(file, api, options) {
   root
     .getTogglesComment([
       options.commentStart || "toggleStart",
-      options.commentEnd || "toggleEnd",
+      options.commentEnd || "toggleEnd"
     ])
     .getTogglePositions(toggleName)
     .removeToggleSection(flag)

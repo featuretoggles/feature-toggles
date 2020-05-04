@@ -7,21 +7,21 @@ import featureTogglePlugin from "../../src";
 
 it("BABEL6 - Basic function", () => {
   const { code } = transformFS(`${__dirname}/src/basic.js`, {
-    plugins: [featureTogglePlugin], //Option will not work here
+    plugins: [featureTogglePlugin] //Option will not work here
   });
   expect(code).toMatchSnapshot();
 });
 
 it("BABEL6 - React component function with Argv", () => {
   const { code } = transformFS(`${__dirname}/src/ReactComponent.js`, {
-    plugins: [featureTogglePlugin, "transform-react-jsx"],
+    plugins: [featureTogglePlugin, "transform-react-jsx"]
   });
   expect(code).toMatchSnapshot();
 });
 
 it("BABEL6 - Vue component function with Argv", () => {
   const { code } = transformFS(`${__dirname}/src/VueComponent.js`, {
-    plugins: [featureTogglePlugin],
+    plugins: [featureTogglePlugin]
   });
   expect(code).toMatchSnapshot();
 });

@@ -42,7 +42,7 @@ export function runTransform({
   parser,
   transformer,
   answers,
-  transformerDirectory,
+  transformerDirectory
 }) {
   const transformerPath = path.join(transformerDirectory, `${transformer}.js`);
 
@@ -56,7 +56,7 @@ export function runTransform({
     flag,
     toggleFlagName,
     commentStart,
-    commentEnd,
+    commentEnd
   } = flags;
 
   if (dry) {
@@ -103,7 +103,7 @@ export function runTransform({
 
   const result = execa.sync(jscodeshiftExecutable, args, {
     stdio: "inherit",
-    stripEof: false,
+    stripEof: false
   });
 
   if (result.error) {
@@ -112,7 +112,7 @@ export function runTransform({
 }
 
 export function expandFilePathsIfNeeded(filesBeforeExpansion) {
-  const shouldExpandFiles = filesBeforeExpansion.some((file) =>
+  const shouldExpandFiles = filesBeforeExpansion.some(file =>
     file.includes("*")
   );
   return shouldExpandFiles

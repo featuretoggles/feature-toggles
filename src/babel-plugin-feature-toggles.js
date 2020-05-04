@@ -11,7 +11,7 @@ export default (babel, options = {}) => {
   const defaultToggle =
     process.env.TOGGLE_CONFIG_NAME || argv.toggleConfig || options.toggleConfig;
   const allVisitors = Object.keys(t.VISITOR_KEYS)
-    .filter((data) => data !== "Program")
+    .filter(data => data !== "Program")
     .join("|");
   let togglesList = {};
   let toggles = {};
@@ -22,7 +22,7 @@ export default (babel, options = {}) => {
   const inFileConfig = "featureTogglesConfig:";
   const opt = {
     ...defaultConfig,
-    ...options,
+    ...options
   };
   const checkPosition = (path, pos) => {
     return path.node && pos[0] <= path.node.start && pos[1] >= path.node.end;
@@ -77,7 +77,7 @@ export default (babel, options = {}) => {
       Program(path, state) {
         const listToggleName = {};
         const finalToggleList = {};
-        path.container.comments.forEach((data) => {
+        path.container.comments.forEach(data => {
           if (data.value.indexOf(inFileConfig) !== -1) {
             try {
               const overrideFeatureNames =
@@ -129,15 +129,15 @@ export default (babel, options = {}) => {
             finalToggleList[key].push(listToggleName[key].splice(0, 2));
         });
         if (log.enabled) {
-          Object.keys(finalToggleList).forEach((name) => {
+          Object.keys(finalToggleList).forEach(name => {
             log(`"${name}" Applied at position %o`, finalToggleList[name]);
           });
         }
         state.finalToggleList = finalToggleList;
       },
       [allVisitors](path, { finalToggleList }) {
-        Object.values(finalToggleList).forEach((data) => {
-          data.forEach((pos) => {
+        Object.values(finalToggleList).forEach(data => {
+          data.forEach(pos => {
             if (checkPosition(path, pos)) {
               t.removeComments(path.node);
               if (!isNaN(path.key)) {
@@ -148,7 +148,7 @@ export default (babel, options = {}) => {
             }
           });
         });
-      },
-    },
+      }
+    }
   };
 };

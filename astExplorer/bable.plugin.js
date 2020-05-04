@@ -1,13 +1,13 @@
 process.env = {};
 process.cwa = () => {};
 const argv = {
-  toggleName: "feature-3",
+  toggleName: "feature-3"
 };
 const defaultConfig = {
   commentStart: "toggleStart",
   commentEnd: "toggleEnd",
   toggleConfigPath: "toggle-configs",
-  customTransformPath: "./ft-transforms",
+  customTransformPath: "./ft-transforms"
 };
 
 const log = () => {};
@@ -17,7 +17,7 @@ export default (babel, options = {}) => {
   const defaultToggle =
     process.env.TOGGLE_CONFIG_NAME || argv.toggleConfig || options.toggleConfig;
   const allVisitors = Object.keys(t.VISITOR_KEYS)
-    .filter((data) => data !== "Program")
+    .filter(data => data !== "Program")
     .join("|");
   let togglesList = {};
   let toggles = {};
@@ -30,7 +30,7 @@ export default (babel, options = {}) => {
   const inFileConfig = "featureTogglesConfig:";
   const opt = {
     ...defaultConfig,
-    ...options,
+    ...options
   };
   const checkPosition = (path, pos) => {
     return path.node && pos[0] <= path.node.start && pos[1] >= path.node.end;
@@ -84,7 +84,7 @@ export default (babel, options = {}) => {
     name: "feature-toggles", // not required
     visitor: {
       Program(path) {
-        path.container.comments.forEach((data) => {
+        path.container.comments.forEach(data => {
           if (data.value.indexOf(inFileConfig) !== -1) {
             try {
               const overrideFeatureNames =
@@ -136,13 +136,13 @@ export default (babel, options = {}) => {
             finalToggleList[key].push(listToggleName[key].splice(0, 2));
         });
 
-        Object.keys(finalToggleList).forEach((name) => {
+        Object.keys(finalToggleList).forEach(name => {
           log(`"${name}" Applied at position %o`, finalToggleList[name]);
         });
       },
       [allVisitors](path) {
-        Object.values(finalToggleList).forEach((data) => {
-          data.forEach((pos) => {
+        Object.values(finalToggleList).forEach(data => {
+          data.forEach(pos => {
             if (checkPosition(path, pos)) {
               t.removeComments(path.node);
               if (!isNaN(path.key)) {
@@ -154,7 +154,7 @@ export default (babel, options = {}) => {
             }
           });
         });
-      },
-    },
+      }
+    }
   };
 };

@@ -8,7 +8,7 @@ import featureTogglePlugin from "../../src";
 
 const { code } = transformFS(`${__dirname}/src/basic.js`, {
   rootMode: "upward",
-  plugins: [[featureTogglePlugin, { dir: __dirname, toggleConfig: "ft1" }]],
+  plugins: [[featureTogglePlugin, { dir: __dirname, toggleConfig: "ft1" }]]
 });
 console.log(code);
 
@@ -18,8 +18,8 @@ const { code: reactCode } = transformFileSync(
     rootMode: "upward",
     plugins: [
       [featureTogglePlugin, { dir: __dirname, toggleName: "ft1" }],
-      "@babel/plugin-transform-react-jsx",
-    ],
+      "@babel/plugin-transform-react-jsx"
+    ]
   }
 );
 console.log(reactCode);
