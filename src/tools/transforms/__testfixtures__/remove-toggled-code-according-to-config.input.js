@@ -3,11 +3,12 @@ featureTogglesConfig: {
   "feature-10": false
 }
 */
+/* toggleStart(old-feature-3) */
 import React from "react";
-
-/* toggleStart(feature-10) */
+/* toggleEnd(old-feature-3) */
+/* toggleStart(feature-3) */
 import ReactDom from "react-dom";
-/* toggleEnd(feature-10) */
+/* toggleEnd(feature-3) */
 
 switch (abc) {
   /* toggleStart(feature-3) */
@@ -19,8 +20,10 @@ switch (abc) {
     console.log("Hello");
   /* toggleEnd(old-feature-3) */
 }
-
 const obj1 = {
+  /* toggleStart(old-feature-3) */
+  xyzabc: true,
+  /* toggleEnd(old-feature-3) */
   /* toggleStart(feature-3) */
   abc: true,
   /* toggleEnd(feature-3) */

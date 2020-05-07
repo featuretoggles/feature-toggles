@@ -74,10 +74,11 @@ More details why you need feature toggles: https://sanjaypanda.com/blogs/feature
 
 Default config:
 
-**commentStart:** "toggleStart" \
-**commentEnd:** "toggleEnd" \
-**dir:** "." \
-**toggleConfig:** "" (If nothing is passed then the toggle will not apply)
+**commentStart:** "toggleStart" - _Customize commented command start name_ \
+**commentEnd:** "toggleEnd" - _Customize commented command end name_\
+**dir:** "." - _Customize the root directory of your application_\
+**toggleConfigPath:** "./toggle-configs/" - _Customize configuration path directory_\
+**toggleConfig:** "" - _Customize your config file name_ (If nothing is passed then the toggle will not apply)
 
 ### STEP 3: (Setting up feature toggle config)
 

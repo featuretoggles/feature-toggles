@@ -1,5 +1,5 @@
 import debug from "debug";
-import { getToggles } from "./utils/getTogglesInfo";
+import { getToggles, getTheToggleFolder } from "./utils/getTogglesInfo";
 import { argv } from "./utils/argvUtils";
 import defaultConfig from "./defaultConfig";
 const log = debug("feature-toggles:babel-plugin");
@@ -16,7 +16,7 @@ export default (babel, options = {}) => {
   let togglesList = {};
   let toggles = {};
   if (dir && defaultToggle) {
-    togglesList = getToggles(dir);
+    togglesList = getToggles(getTheToggleFolder(dir, options));
     toggles = togglesList[defaultToggle];
   }
   const inFileConfig = "featureTogglesConfig:";
@@ -32,9 +32,9 @@ export default (babel, options = {}) => {
       ["left", "right"].includes(node.key) &&
       !t.isAssignmentExpression(node.parentPath)
     ) {
-      if (node.key == "right") {
+      if (node.key == "right" && node.parent["left"]) {
         node.parentPath.replaceWith(node.parent["left"]);
-      } else if (node.key == "left") {
+      } else if (node.key == "left" && node.parent["right"]) {
         node.parentPath.replaceWith(node.parent["right"]);
       }
     } else if (t.isIfStatement(node.parentPath)) {

@@ -4,13 +4,17 @@ import { argv } from "./argvUtils";
 import defaultConfig from "../defaultConfig";
 
 export const getTheNameWithOutExtension = fileName => fileName.split(".")[0];
-export const getTheToggleFolder = () =>
-  process.env.TOGGLE_PATH || argv.togglePath || defaultConfig.toggleConfigPath;
-export const listTogglesByFileName = (dir = __dirname) => {
+export const getTheToggleFolder = (dir, options) => {
+  const togglePath =
+    process.env.TOGGLE_CONFIG_PATH ||
+    argv.toggleConfigPath ||
+    options.toggleConfigPath ||
+    defaultConfig.toggleConfigPath;
+  return path.resolve(dir, togglePath);
+};
+export const listTogglesByFileName = dirPath => {
   const listOfToggleConfig = reqAll({
-    dirPath: dir
-      ? path.resolve(dir, getTheToggleFolder())
-      : getTheToggleFolder(),
+    dirPath: dirPath,
     fileNameMap: getTheNameWithOutExtension
   });
   return listOfToggleConfig;

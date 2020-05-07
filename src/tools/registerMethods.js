@@ -8,30 +8,45 @@ const checkPosition = (node, togglePos) => {
     togglePos.end >= node.value.end
   );
 };
+const deepUnique = (elem, index, array) => {
+  for (var i = 0; i < index; i++) {
+    if (array[i].value == elem.value) return false;
+  }
+  return true;
+};
 export const toggleCommonFunction = j => {
-  const restoreCommentForNode = (node, comments = null, process = null) => {
-    let { trailingComments, leadingComments } = comments || node;
-    if (typeof process === "function") {
-      process(trailingComments, leadingComments);
+  const restoreCommentForNode = (node, commentsNode = null, process = null) => {
+    let { trailingComments, leadingComments, comments } = node;
+    let tComments = trailingComments;
+    if (commentsNode) {
+      var { leadingComments: lc, comments: c } = commentsNode;
+      tComments = (trailingComments || []).concat(lc || []).concat(c || []);
     }
-    node.comments = (leadingComments || []).concat(trailingComments || []);
+    if (typeof process === "function") {
+      process(tComments, leadingComments);
+    }
+    const allcomments = (leadingComments || [])
+      .concat(tComments || [])
+      .concat(comments || []);
+    node.comments = allcomments.filter(deepUnique);
     return node;
   };
   const adjustCommentBeforeRemove = node => {
-    const nodeType = node.value.type;
+    const nodeValue = node.value;
     node.prune();
-    if (["JSXAttribute"].indexOf(nodeType) !== -1) {
-      const updatedNode =
-        node.parentPath.value[node.name] ||
-        node.parentPath.value[node.name - 1];
-      updatedNode &&
-        restoreCommentForNode(updatedNode, null, function(trailingComments) {
+    const collectCommentFromNearNode = [
+      node.parentPath.value[node.name],
+      node.parentPath.value[node.name - 1]
+    ];
+    collectCommentFromNearNode.forEach(cNode => {
+      cNode &&
+        restoreCommentForNode(cNode, nodeValue, function(trailingComments) {
           (trailingComments || []).forEach(data => {
             data.trailing = true;
             data.leading = false;
           });
         });
-    }
+    });
   };
   const adjustNodeAndUpdate = (node, togglePos) => {
     if (
