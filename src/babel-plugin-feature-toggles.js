@@ -2,28 +2,15 @@ import debug from "debug";
 import { getToggles, getTheToggleFolder } from "./utils/getTogglesInfo";
 import { argv } from "./utils/argvUtils";
 import defaultConfig from "./defaultConfig";
+import packages from "../package.json";
 const log = debug("feature-toggles:babel-plugin");
 export default (babel, options = {}) => {
   const { types: t } = babel;
-
-  const dir =
-    process.env.TOGGLE_DIR || argv.toggleDir || options.dir || process.cwd();
-  const defaultToggle =
-    process.env.TOGGLE_CONFIG_NAME || argv.toggleConfig || options.toggleConfig;
+  const inFileConfig = "featureTogglesConfig:";
   const allVisitors = Object.keys(t.VISITOR_KEYS)
     .filter(data => data !== "Program")
     .join("|");
-  let togglesList = {};
-  let toggles = {};
-  if (dir && defaultToggle) {
-    togglesList = getToggles(getTheToggleFolder(dir, options));
-    toggles = togglesList[defaultToggle];
-  }
-  const inFileConfig = "featureTogglesConfig:";
-  const opt = {
-    ...defaultConfig,
-    ...options
-  };
+
   const checkPosition = (path, pos) => {
     return path.node && pos[0] <= path.node.start && pos[1] >= path.node.end;
   };
@@ -34,8 +21,10 @@ export default (babel, options = {}) => {
     ) {
       if (node.key == "right" && node.parent["left"]) {
         node.parentPath.replaceWith(node.parent["left"]);
+        pos.push(true);
       } else if (node.key == "left" && node.parent["right"]) {
         node.parentPath.replaceWith(node.parent["right"]);
+        pos.push(true);
       }
     } else if (t.isIfStatement(node.parentPath)) {
       if (checkPosition(node, pos)) {
@@ -43,13 +32,16 @@ export default (babel, options = {}) => {
           case "test":
             if (!node.parent.alternate) {
               node.parentPath.replaceWith(node.parent.consequent);
+              pos.push(true);
             }
             break;
           case "consequent":
             node.parentPath.replaceWith(node.parent.alternate);
+            pos.push(true);
             break;
           case "alternate":
             node.remove();
+            pos.push(true);
             break;
         }
       }
@@ -57,22 +49,54 @@ export default (babel, options = {}) => {
       if (node.key == "object") {
         if (node.parent["property"].node) {
           node.parentPath.replaceWith(node.parent["property"]);
+          pos.push(true);
         }
       } else if (node.key == "property") {
         if (node.parent["object"]) {
           if (t.isCallExpression(node.parent["object"])) {
             node.parentPath.replaceWith(node.parent["object"].callee);
+            pos.push(true);
           } else {
             node.parentPath.parentPath.replaceWith(node.parent["object"]);
+            pos.push(true);
           }
         }
       }
     } else if (node.key === "superClass") {
       node.remove();
+      pos.push(true);
     }
   };
   return {
     name: "feature-toggles", // not required
+    pre(state) {
+      this.opts = {
+        ...defaultConfig,
+        ...state.opts
+      };
+      const dir =
+        process.env.TOGGLE_DIR ||
+        argv.toggleDir ||
+        state.opts.dir ||
+        process.cwd();
+      const defaultToggle =
+        process.env.TOGGLE_CONFIG_NAME ||
+        argv.toggleConfig ||
+        state.opts.toggleConfig;
+
+      let togglesList = {};
+      let toggles = {};
+      if (dir && defaultToggle) {
+        togglesList = getToggles(getTheToggleFolder(dir, state.opts));
+        toggles = togglesList[defaultToggle];
+      } else {
+        throw new Error(
+          "Failed - Looks like you are not provided 'toggleConfig'"
+        );
+      }
+      this.toggles = toggles;
+      this.cache = new Map();
+    },
     visitor: {
       Program(path, state) {
         const listToggleName = {};
@@ -84,16 +108,20 @@ export default (babel, options = {}) => {
                 JSON.parse(
                   data.value.replace(inFileConfig, "").replace(/\/n/, "")
                 ) || {};
-              toggles = { ...toggles, ...overrideFeatureNames };
+              state.toggles = {
+                ...state.toggles,
+                ...overrideFeatureNames
+              };
             } catch (error) {
               throw Error(
                 `Looks like you missed something in file config ${data.value}`
               );
             }
           }
-          if (data.value.indexOf(opt.commentStart) !== -1) {
+          const toggles = state.toggles;
+          if (data.value.indexOf(state.opts.commentStart) !== -1) {
             const res = data.value.match(
-              new RegExp(`${opt.commentStart}\\((.*)\\)`)
+              new RegExp(`${state.opts.commentStart}\\((.*)\\)`)
             );
             if ([undefined, true].indexOf(toggles[res[1]]) !== -1) return;
             listToggleName[res[1]] = listToggleName[res[1]] || [];
@@ -106,9 +134,9 @@ export default (babel, options = {}) => {
               );
             }
             listToggleName[res[1]].push(data.start);
-          } else if (data.value.indexOf(opt.commentEnd) !== -1) {
+          } else if (data.value.indexOf(state.opts.commentEnd) !== -1) {
             const res = data.value.match(
-              new RegExp(`${opt.commentEnd}\\((.*)\\)`)
+              new RegExp(`${state.opts.commentEnd}\\((.*)\\)`)
             );
             if ([undefined, true].indexOf(toggles[res[1]]) !== -1) return;
             if (
@@ -134,6 +162,7 @@ export default (babel, options = {}) => {
           });
         }
         state.finalToggleList = finalToggleList;
+        state.cache.set(state.filename, state.finalToggleList);
       },
       [allVisitors](path, { finalToggleList }) {
         Object.values(finalToggleList).forEach(data => {
@@ -142,12 +171,25 @@ export default (babel, options = {}) => {
               t.removeComments(path.node);
               if (!isNaN(path.key)) {
                 path.remove();
+                pos.push(true);
               } else {
                 adjustNodeAndUpdate(path, pos);
               }
             }
           });
         });
+      }
+    },
+    post() {
+      const validate = Object.values(this.finalToggleList)
+        .map(data => {
+          return data.every(pos => pos[2]);
+        })
+        .every(data => data);
+      if (!validate) {
+        throw new Error(
+          `Feature toggling failed. \nLooks like problem with ${packages.name}. Please create a issue ${packages.bugs.url}`
+        );
       }
     }
   };

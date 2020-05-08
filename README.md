@@ -4,7 +4,7 @@
   </a>
 </p>
 <p align="center">
-  A feature toggles solution for javascript applications.
+  A feature toggling solution for javascript applications.
 </p>
 <p align="center">
     <a href="https://www.npmjs.com/package/babel-plugin-feature-toggles"><img alt="Babel plugin Downloads" src="https://img.shields.io/npm/dm/babel-plugin-feature-toggles.svg?maxAge=43200&label=Babel%20plugin%20downloads"></a>
@@ -15,7 +15,7 @@
 
 # Feature Toggles
 
-Currently, This is available as a babel plugin.
+A _Babel plugin_ that helps remove _unfinished code_ from your JavaScript and Node Js application on _build time_. This is a configuration based feature toggling.
 
 > ### The list of problems stopping you to productive, then you are at right place.
 >
@@ -24,7 +24,37 @@ Currently, This is available as a babel plugin.
 > 3. How to manage single codebase used by multiple teams?
 > 4. How to maintain a production-ready master branch?
 
-More details why you need feature toggles: https://sanjaypanda.com/blogs/feature-toggles-ideas-and-uses/
+**Problem statement example:**\
+You are one of the several teams working on a project where you might be seen below situations.
+
+1. **Unfinished code:**
+
+- Given you working on a feature and that will take several times before goto production. In general, You create a feature branch and put all new code in it and keep updating until you and your team think the feature is ready for production and ready for merge to master branch.
+- Now think about another aspect of it. Suppose you took this feature to build 4 weeks in a separate branch. In the meantime, another team member of your team also building other feature and merge them to master branch.
+- The problem started when your feature branch is few days or weeks behind while you try to merge the code you find merge conflicts multiple in files. And trust me which is worse then you think.
+- You created a feature branch to manage unfinished code but you end up merge hell.
+
+2. **External dependency:**
+
+- Another situation where you ready with your feature in a separate branch and the backend code is not yet ready or the business doesn't want to release the feature now. What will happen after 2 months or 4 months your team says lets release that feature, do you think that will be easy like merge the code to master and release.
+- Not sure about you but when I faced this issue, it freaked me out.
+- Let's analyze what happened to me.
+  - First I hit with merge conflict and it took me hell lot of time to resolve and also need to talk to the developer whose code causes the conflicts.
+  - Okay I passed the situational and rebase is successful, handed over to the testing team. The testing team gave me a list of the bug to fix. What torture and if your team facing this more often then it's not you the problem its just the process we adopt that is the problem.
+- Merge leads you to bugs and the code is separately built so automated test will not be able to handle that.
+
+3. **One branch strategies:**
+
+- Some team uses one branch strategy, where they use the master branch to push all code from the local machine. They use automation tools to help test before merge to master.
+
+- Using one branch and relay on automation tools is not a bad option. But here challenge comes, there is no way you can push unfinished code to master. Here a developer blocked with unfinished code.
+
+If you or your team going through above you need feature toggles.
+
+More details why you need feature toggles and what is feature-toggle:
+
+- https://sanjaypanda.com/blogs/feature-toggles-ideas-and-uses/
+- https://martinfowler.com/articles/feature-toggles.html
 
 ## Benefits
 
@@ -38,7 +68,7 @@ More details why you need feature toggles: https://sanjaypanda.com/blogs/feature
 
 ## Cons
 
-- Little bit complexity to the code
+- Complexity to the code
 - Tech dept and overhead of un-maintained toggles
 - Easily get massy
 
@@ -243,9 +273,7 @@ Follow the below example will help you understand more.
 }
 ```
 
-## Great Power comes with responsibility.
-
-Here is a list of responsibilities.
+### List of precaution:
 
 1. #### One feature one toggle flag
 
@@ -257,38 +285,36 @@ Here is a list of responsibilities.
 
 2. #### Remove toggle flags from code.
 
-```sh
-# Remove the code wrapped with toggle "feature-3"
-./node_modules/.bin/feature-toggles clean --toggleName=feature-3
-```
+   ```sh
+   # Remove the code wrapped with toggle "feature-3"
+   ./node_modules/.bin/feature-toggles clean --toggleName=feature-3
+   ```
 
-```sh
-# Remove the comment wrapped with toggle "feature-3"
-./node_modules/.bin/feature-toggles clean --toggleName=feature-3 --flag
-```
+   ```sh
+   # Remove the comment wrapped with toggle "feature-3"
+   ./node_modules/.bin/feature-toggles clean --toggleName=feature-3 --flag
+   ```
 
-```sh
-# For more option
-./node_modules/.bin/feature-toggles clean --help
-Usage:
-    $ ./node_modules/.bin/feature-toggles clean <path> <...options>
-    path                     Files or directory to transform. Can be a glob like src/**.test.js
-    Options:
-        -t, --toggleFlagName       Toggle flag name
-            --flag                 Only remove comment condition
+   ```sh
+   # For more option
+   ./node_modules/.bin/feature-toggles clean --help
+   Usage:
+       $ ./node_modules/.bin/feature-toggles clean <path> <...options>
+       path                     Files or directory to transform. Can be a glob like src/**.test.js
+       Options:
+           -t, --toggleFlagName       Toggle flag name
+               --flag                 Only remove comment condition
 
-    Other Options:
-        --force, -f              Bypass Git safety checks and forcibly run codemods
-        --dry                    Dry run (no changes are made to files)
-        --print                  Print transformed files to your terminal
-        --explicit-require       Transform only if React is imported in the file (default: true)
-        --jscodeshift            (Advanced) Pass options directly to jscodeshift
+       Other Options:
+           --force, -f              Bypass Git safety checks and forcibly run codemods
+           --dry                    Dry run (no changes are made to files)
+           --print                  Print transformed files to your terminal
+           --explicit-require       Transform only if React is imported in the file (default: true)
+           --jscodeshift            (Advanced) Pass options directly to jscodeshift
 
-    Examples
-        $ ./node_modules/.bin/feature-toggles clean ./src  --toggleFlagName=feature-3
-
-
-```
+       Examples
+           $ ./node_modules/.bin/feature-toggles clean ./src  --toggleFlagName=feature-3
+   ```
 
 ## Try it
 

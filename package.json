@@ -45,6 +45,10 @@
     "type": "git",
     "url": "https://github.com/featuretoggles/feature-toggles.git"
   },
+  "bugs": {
+    "url": "https://github.com/featuretoggles/feature-toggles/issues",
+    "email": "feature-toggles@sanjaypanda.com"
+  },
   "dependencies": {
     "chalk": "^3.0.0",
     "debug": "^4.1.1",
