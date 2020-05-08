@@ -2,9 +2,12 @@ import debug from "debug";
 import { getToggles, getTheToggleFolder } from "./utils/getTogglesInfo";
 import { argv } from "./utils/argvUtils";
 import defaultConfig from "./defaultConfig";
-import packages from "../package.json";
+import finder from "find-package-json";
+
+let packages = finder(__dirname).next().value;
 const log = debug("feature-toggles:babel-plugin");
-export default (babel, options = {}) => {
+
+export default babel => {
   const { types: t } = babel;
   const inFileConfig = "featureTogglesConfig:";
   const allVisitors = Object.keys(t.VISITOR_KEYS)
@@ -72,7 +75,7 @@ export default (babel, options = {}) => {
     pre(state) {
       this.opts = {
         ...defaultConfig,
-        ...state.opts
+        ...this.opts
       };
       const dir =
         process.env.TOGGLE_DIR ||
@@ -95,7 +98,6 @@ export default (babel, options = {}) => {
         );
       }
       this.toggles = toggles;
-      this.cache = new Map();
     },
     visitor: {
       Program(path, state) {
@@ -119,10 +121,17 @@ export default (babel, options = {}) => {
             }
           }
           const toggles = state.toggles;
-          if (data.value.indexOf(state.opts.commentStart) !== -1) {
-            const res = data.value.match(
-              new RegExp(`${state.opts.commentStart}\\((.*)\\)`)
-            );
+          const commentStartRegex = new RegExp(
+            `^\\s?${state.opts.commentStart}\\((.*)\\)`,
+            "i"
+          );
+          const commentEndRegex = new RegExp(
+            `^\\s?${state.opts.commentEnd}\\((.*)\\)`,
+            "i"
+          );
+          const trimmedComment = data.value.replace(/ /g, "");
+          if (commentStartRegex.test(trimmedComment)) {
+            const res = trimmedComment.match(commentStartRegex);
             if ([undefined, true].indexOf(toggles[res[1]]) !== -1) return;
             listToggleName[res[1]] = listToggleName[res[1]] || [];
             if (
@@ -134,10 +143,8 @@ export default (babel, options = {}) => {
               );
             }
             listToggleName[res[1]].push(data.start);
-          } else if (data.value.indexOf(state.opts.commentEnd) !== -1) {
-            const res = data.value.match(
-              new RegExp(`${state.opts.commentEnd}\\((.*)\\)`)
-            );
+          } else if (commentEndRegex.test(trimmedComment)) {
+            const res = trimmedComment.match(commentEndRegex);
             if ([undefined, true].indexOf(toggles[res[1]]) !== -1) return;
             if (
               listToggleName[res[1]].length &&
@@ -162,7 +169,6 @@ export default (babel, options = {}) => {
           });
         }
         state.finalToggleList = finalToggleList;
-        state.cache.set(state.filename, state.finalToggleList);
       },
       [allVisitors](path, { finalToggleList }) {
         Object.values(finalToggleList).forEach(data => {

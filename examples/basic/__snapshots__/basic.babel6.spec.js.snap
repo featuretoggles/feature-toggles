@@ -15,7 +15,7 @@ exports[`BABEL6 - Basic function 1`] = `
  */
 let abc;
 abc = true;
-/* toggleStart(feature-3) */
+/*      toggleStart(feature-3) */
 
 /* toggleEnd(feature-3) */
 
