@@ -37,8 +37,7 @@ If you are one of the several teams working on the same repository, then chances
 
 2. **External dependency:**
 
-- Another situation where you ready with your feature in a separate branch and the backend code is not yet ready or the business doesn't want to release the feature now. What will happen after 2 months or 4 months when your team is ready to release the feature, are you anticipating a smooth merging into the master branch?
-- Not sure about you but when I faced this issue, it freaked me out.
+- Another situation where you ready with your feature in a separate branch and the backend code is not yet ready or the business doesn't want to release the feature now. What will happen after 2 months or 4 months when your team is ready to release the feature, are you anticipating a smooth merging into the master branch? Not sure about you but when I faced this issue, it freaked me out.
 - Let's analyze my experience with it
   - I was hit with a lot of merge conflicts and it took me a hell lot of time to resolve it. I had to catch up with multiple developers to ensure that I am not accidentally removing their code.
   - Somehow I resolved all the merge conflicts and rebased successfully and handed it over for testing. When I thought everything is going smoothly, the testing team just gave me a huge list of bugs for us to fix. If you are facing the same problem, it is not you but the process that you adopted needs to be changed.
