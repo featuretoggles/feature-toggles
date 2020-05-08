@@ -80,17 +80,17 @@ export default babel => {
       const dir =
         process.env.TOGGLE_DIR ||
         argv.toggleDir ||
-        state.opts.dir ||
+        this.opts.dir ||
         process.cwd();
       const defaultToggle =
         process.env.TOGGLE_CONFIG_NAME ||
         argv.toggleConfig ||
-        state.opts.toggleConfig;
+        this.opts.toggleConfig;
 
       let togglesList = {};
       let toggles = {};
       if (dir && defaultToggle) {
-        togglesList = getToggles(getTheToggleFolder(dir, state.opts));
+        togglesList = getToggles(getTheToggleFolder(dir, this.opts));
         toggles = togglesList[defaultToggle];
       } else {
         throw new Error(
