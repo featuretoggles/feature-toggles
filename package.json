@@ -1,21 +1,42 @@
 {
   "name": "feature-toggles",
-  "version": "0.1.8",
-  "description": "Feature toggles helps to build features, keep code clean and separate. This is a tool for use feature toggling in a REACT web application.",
+  "version": "0.2.0",
+  "description": "A feature toggles solution for javascript applications.",
   "main": "index.js",
-  "author": "Sanjay <contact@sanjaypanda.com>",
+  "bin": {
+    "feature-toggles": "./bin/feature-toggles.js"
+  },
+  "author": {
+    "name": "Sanjay Panda",
+    "email": "contact@sanjaypanda.com",
+    "url": "sanjaypanda.com"
+  },
   "license": "MIT",
   "keywords": [
     "babel-plugin",
     "feature-toggles",
     "Toggling Best way",
-    "Build Time Feature Toggle"
+    "Build Time Feature Toggle",
+    "toggle off",
+    "toggle on"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "files": [
+    "index.js",
+    "babel-plugin-feature-toggles.js",
+    "defaultConfig.js",
+    "bin",
+    "tools",
+    "utils"
   ],
   "scripts": {
     "node:debug": "babel-node ./scripts/run basic --inspect-brk=26341",
     "start": "babel-node ./scripts/run basic",
-    "build": "babel src --out-dir lib --copy-files README.md LICENSE && rm -rf ./lib/__test__",
-    "test": "jest --toggleName=ft1 --toggleDir=./examples/basic",
+    "build": "sh ./scripts/build.sh",
+    "build:only": "babel src --out-dir lib --copy-files README.md LICENSE",
+    "test": "TOGGLE_DIR=./examples/basic TOGGLE_CONFIG_NAME=ft1 jest",
     "lint": "eslint .",
     "prelive": "rm -rf lib && yarn run lint && yarn run test && yarn run build && babel-node ./scripts/copyPackage.js --name babel-plugin-feature-toggles  ",
     "live:babel": "npm run prelive && npm publish ./lib"
@@ -24,28 +45,50 @@
     "type": "git",
     "url": "https://github.com/featuretoggles/feature-toggles.git"
   },
+  "bugs": {
+    "url": "https://github.com/featuretoggles/feature-toggles/issues",
+    "email": "feature-toggles@sanjaypanda.com"
+  },
   "dependencies": {
-    "debug": "^4.1.1"
+    "chalk": "^3.0.0",
+    "debug": "^4.1.1",
+    "execa": "^4.0.0",
+    "find-package-json": "^1.2.0",
+    "globby": "^11.0.0",
+    "is-git-clean": "^1.1.0",
+    "jscodeshift": "^0.7.0",
+    "meow": "^6.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.4",
-    "@babel/core": "^7.7.4",
-    "@babel/node": "^7.7.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.7.4",
-    "@babel/plugin-transform-react-jsx": "^7.7.4",
-    "@babel/preset-env": "^7.7.6",
-    "@babel/traverse": "^7.7.4",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
+    "@babel/plugin-transform-react-jsx": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/traverse": "^7.8.6",
     "babel-core": "^6.26.3",
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
-    "eslint": "^6.7.2",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-prettier": "^6.7.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-prettier": "^3.1.1",
-    "jest": "^24.9.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^25.1.0",
     "prettier": "^1.19.1",
-    "react": "^16.12.0",
-    "yargs": "^15.0.2"
+    "react": "^16.13.0",
+    "yargs": "^15.3.1"
+  },
+  "jest": {
+    "roots": [
+      "examples",
+      "src"
+    ],
+    "transformIgnorePatterns": [
+      "__tests__",
+      "__testfixtures__"
+    ]
   }
 }

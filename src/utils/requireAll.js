@@ -19,13 +19,14 @@ export default options => {
   const modules = {};
   // Read the files from dir path
   const files = fs.readdirSync(dirPath);
-
   // Loop through the files and get the data from the list
-  files.forEach(fileName => {
-    // Add the file name and data to the Object
-    modules[fileNameMap(fileName)] = resolveFileData(
-      require(`${dirPath}/${fileName}`)
-    );
-  });
+  files
+    .filter(name => RegExp(".*(.js|.json)$").test(name))
+    .forEach(fileName => {
+      // Add the file name and data to the Object
+      modules[fileNameMap(fileName)] = resolveFileData(
+        require(`${dirPath}/${fileName}`)
+      );
+    });
   return modules;
 };

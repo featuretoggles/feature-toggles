@@ -1,0 +1,222 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BABEL7 - Basic function 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports[\\"default\\"] = void 0;
+// \`
+// If \\"ft1\\" toggle is used to build the application:
+// {
+//     \\"feature-2\\" : true,
+//     \\"feature-3\\" : false // Any code wrapped with feature-3 will be removed
+// }
+// \`
+
+/**
+ * If you wan to reassign a variable
+ * please use below toggles
+ */
+var abc;
+abc = true;
+/*      toggleStart(feature-3) */
+
+/* toggleEnd(feature-3) */
+
+/**
+ * SWITCH CASE
+ */
+switch (abc) {
+  case true:
+    console.log(\\"Hello\\");
+
+  /* toggleStart(feature-3) */
+}
+/**
+ * Inside Object
+ */
+
+
+var obj = {
+  /* toggleEnd(feature-3) */
+  xyz: true
+};
+/**
+ * Object Member Function
+ */
+
+obj
+/* toggleStart(feature-3) */
+
+/* toggleEnd(feature-3) */
+.func1();
+/**
+ * If else condition
+ */
+
+if ( //toggleEnd(feature-3)
+obj.abc) {
+  console.log();
+} //toggleStart(feature-3)
+else {} //toggleEnd(feature-3)
+
+
+function basic() {
+  // toggleEnd(feature-3)
+  // The below toggle is not available in the toggle list so that will not removed by toggle
+  // toggleStart(feature-10)
+  console.log(\\"This will not remove\\"); // toggleEnd(feature-10)
+}
+
+var _default = {
+  basic: basic
+};
+exports[\\"default\\"] = _default;"
+`;
+
+exports[`BABEL7 - React component function with Argv 1`] = `
+"\\"use strict\\";
+
+var _interopRequireDefault = require(\\"@babel/runtime/helpers/interopRequireDefault\\");
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports[\\"default\\"] = exports.newComponent = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/classCallCheck\\"));
+
+var _createClass2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/createClass\\"));
+
+var _inherits2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/inherits\\"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/possibleConstructorReturn\\"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/getPrototypeOf\\"));
+
+var _react = _interopRequireDefault(require(\\"react\\"));
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = (0, _getPrototypeOf2[\\"default\\"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0, _getPrototypeOf2[\\"default\\"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0, _possibleConstructorReturn2[\\"default\\"])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === \\"undefined\\" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === \\"function\\") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+/* toggleEnd(feature-10) */
+var Welcome = /*#__PURE__*/function (_React$Component) {
+  (0, _inherits2[\\"default\\"])(Welcome, _React$Component);
+
+  var _super = _createSuper(Welcome);
+
+  function Welcome() {
+    (0, _classCallCheck2[\\"default\\"])(this, Welcome);
+    return _super.apply(this, arguments);
+  }
+
+  (0, _createClass2[\\"default\\"])(Welcome, [{
+    key: \\"render\\",
+    value: function render() {
+      return /*#__PURE__*/_react[\\"default\\"].createElement(\\"div\\", null, /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
+    }
+  }]);
+  return Welcome;
+}(_react[\\"default\\"].Component);
+
+var newComponent = function newComponent() {
+  return /*#__PURE__*/_react[\\"default\\"].createElement(\\"div\\", null, /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is existing feature\\"), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), /*#__PURE__*/_react[\\"default\\"].createElement(Welcome, {
+    abc: \\"true\\"
+    /* toggleStart(feature-3) */
+
+  }), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
+};
+
+exports.newComponent = newComponent;
+var _default = Welcome;
+exports[\\"default\\"] = _default;"
+`;
+
+exports[`BABEL7 - Vue component function with Argv 1`] = `
+"\\"use strict\\";
+
+var template;
+/**
+ * When we want to add a new feature we should wrap the old code with a \\"old-\\" prefix toggleName.
+ * This will be easy to remove code automatically using codemod.
+ */
+
+/* toggleStart(old-feature-3) */
+
+template = \\"<a> Old code </a>\\";
+/* toggleEnd(old-feature-3) */
+
+/* toggleStart(feature-3) */
+
+/* toggleEnd(feature-3) */
+Vue.component(\\"button-counter\\", {
+  data: function data() {
+    return {
+      count: 0
+    };
+  },
+  template: template
+});"
+`;
+
+exports[`BABEL7- React component function  1`] = `
+"\\"use strict\\";
+
+var _interopRequireDefault = require(\\"@babel/runtime/helpers/interopRequireDefault\\");
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports[\\"default\\"] = exports.newComponent = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/classCallCheck\\"));
+
+var _createClass2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/createClass\\"));
+
+var _inherits2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/inherits\\"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/possibleConstructorReturn\\"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/getPrototypeOf\\"));
+
+var _react = _interopRequireDefault(require(\\"react\\"));
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = (0, _getPrototypeOf2[\\"default\\"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0, _getPrototypeOf2[\\"default\\"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0, _possibleConstructorReturn2[\\"default\\"])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === \\"undefined\\" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === \\"function\\") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+/* toggleEnd(feature-10) */
+var Welcome = /*#__PURE__*/function (_React$Component) {
+  (0, _inherits2[\\"default\\"])(Welcome, _React$Component);
+
+  var _super = _createSuper(Welcome);
+
+  function Welcome() {
+    (0, _classCallCheck2[\\"default\\"])(this, Welcome);
+    return _super.apply(this, arguments);
+  }
+
+  (0, _createClass2[\\"default\\"])(Welcome, [{
+    key: \\"render\\",
+    value: function render() {
+      return /*#__PURE__*/_react[\\"default\\"].createElement(\\"div\\", null, /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
+    }
+  }]);
+  return Welcome;
+}(_react[\\"default\\"].Component);
+
+var newComponent = function newComponent() {
+  return /*#__PURE__*/_react[\\"default\\"].createElement(\\"div\\", null, /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is existing feature\\"), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), /*#__PURE__*/_react[\\"default\\"].createElement(Welcome, {
+    abc: \\"true\\"
+    /* toggleStart(feature-3) */
+
+  }), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
+};
+
+exports.newComponent = newComponent;
+var _default = Welcome;
+exports[\\"default\\"] = _default;"
+`;
