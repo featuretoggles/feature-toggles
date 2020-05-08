@@ -17,39 +17,40 @@
 
 A _Babel plugin_ that helps remove _unfinished code_ from your JavaScript and Node Js application on _build time_. This is a configuration based feature toggling.
 
-> ### The list of problems stopping you to productive, then you are at right place.
+> ### If you are looking for a solution to the below mentioned problems, then you are in the right place.
 >
 > 1. How to maintain both existing and unfinished feature?
 > 2. How to get rid of long-lived branches?
 > 3. How to manage single codebase used by multiple teams?
 > 4. How to maintain a production-ready master branch?
 
-**Problem statement example:**\
-You are one of the several teams working on a project where you might be seen below situations.
+**Problem statement:**\
+If you are one of the several teams working on the same repository, then chances are that you might have faced the below mentioned situations.
 
 1. **Unfinished code:**
 
-- Given you working on a feature and that will take several times before goto production. In general, You create a feature branch and put all new code in it and keep updating until you and your team think the feature is ready for production and ready for merge to master branch.
-- Now think about another aspect of it. Suppose you took this feature to build 4 weeks in a separate branch. In the meantime, another team member of your team also building other feature and merge them to master branch.
-- The problem started when your feature branch is few days or weeks behind while you try to merge the code you find merge conflicts multiple in files. And trust me which is worse then you think.
-- You created a feature branch to manage unfinished code but you end up merge hell.
+- Given you are working on a feature that might take some time before it goes to production. Generally, you might create a feature branch and put all new code in it and keep updating until the feature is production-ready and to be merged into the master branch.
+
+- Now think about another aspect of it. Suppose you took more than 4 weeks to build this feature in a separate branch. But during this team other colleagues might keep on merging their code into the master branch.
+- Since your branch is weeks behind the master branch, when you try to merge your branch with the master, you will be bombarded with multiple merge conflicts. And trust me which is worse then you think.
+- So, if you keep your code in a feature branch for a long time, you will end up in a merge hell
 
 2. **External dependency:**
 
-- Another situation where you ready with your feature in a separate branch and the backend code is not yet ready or the business doesn't want to release the feature now. What will happen after 2 months or 4 months your team says lets release that feature, do you think that will be easy like merge the code to master and release.
+- Another situation where you ready with your feature in a separate branch and the backend code is not yet ready or the business doesn't want to release the feature now. What will happen after 2 months or 4 months when your team is ready to release the feature, are you anticipating a smooth merging into the master branch?
 - Not sure about you but when I faced this issue, it freaked me out.
-- Let's analyze what happened to me.
-  - First I hit with merge conflict and it took me hell lot of time to resolve and also need to talk to the developer whose code causes the conflicts.
-  - Okay I passed the situational and rebase is successful, handed over to the testing team. The testing team gave me a list of the bug to fix. What torture and if your team facing this more often then it's not you the problem its just the process we adopt that is the problem.
-- Merge leads you to bugs and the code is separately built so automated test will not be able to handle that.
+- Let's analyze my experience with it
+  - I was hit with a lot of merge conflicts and it took me a hell lot of time to resolve it. I had to catch up with multiple developers to ensure that I am not accidentally removing their code.
+  - Somehow I resolved all the merge conflicts and rebased successfully and handed it over for testing. When I thought everything is going smoothly, the testing team just gave me a huge list of bugs for us to fix. If you are facing the same problem, it is not you but the process that you adopted needs to be changed.
+- Handling merge conflicts are error prone and your automated tests might not catch that all the time
 
 3. **One branch strategies:**
 
-- Some team uses one branch strategy, where they use the master branch to push all code from the local machine. They use automation tools to help test before merge to master.
+- The new trend is the one branch strategy where team uses a single master branch to push all the code from the local machine. They use automation tools to ensure the testing phase before merging to master.
 
-- Using one branch and relay on automation tools is not a bad option. But here challenge comes, there is no way you can push unfinished code to master. Here a developer blocked with unfinished code.
+- Using one branch and relying on automation is not a bad option. But the challenge is that there is no way you can push unfinished code into the master without getting an escalation from the testing team. So the developer is stuck with unfinished code in his local branch.
 
-If you or your team going through above you need feature toggles.
+If you or your team is facing any of the above mentioned issues, then trust me, feature toggles can make your life a lot simpler.
 
 More details why you need feature toggles and what is feature-toggle:
 
