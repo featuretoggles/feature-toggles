@@ -71,7 +71,7 @@ export default babel => {
     }
   };
   return {
-    name: "feature-toggles", // not required
+    name: "feature-toggles",
     pre(state) {
       this.opts = {
         ...defaultConfig,
@@ -94,7 +94,7 @@ export default babel => {
         toggles = togglesList[defaultToggle];
       } else {
         throw new Error(
-          "Failed - Looks like you are not provided 'toggleConfig'"
+          "Failed - Looks like you are not provided 'toggleConfig' file path. \n Try using '--toggleConfig=<config file name>'"
         );
       }
       this.toggles = toggles;
