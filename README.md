@@ -318,7 +318,7 @@ Follow the below example will help you understand more.
 
 ## Try it
 
-[Example - Babel plugin](https://astexplorer.net/#/gist/e0ad0b507db335f520e31eaa68e863f7/5303ce63fe84e88dd94b7f424ce6cd8f3d73ae97)
+[Example - Babel plugin](https://astexplorer.net/#/gist/e0ad0b507db335f520e31eaa68e863f7/d49d6b5f5787e92217725d4c4d951cdfeac9c639)
 
 [Example - Remove toggle](https://astexplorer.net/#/gist/8f939c0e557f235fff82d845adac88a3/02b32253543ab769e409a5c44e0afd280cf79798)
 
