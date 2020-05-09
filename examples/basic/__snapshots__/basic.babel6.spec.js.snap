@@ -58,6 +58,10 @@ obj.abc) {
 else {}
 //toggleEnd(feature-3)
 
+const func = (firstArg,
+/*toggleEnd(feature-3)*/thirdArg) => {
+  console.log();
+};
 function basic() {
   // toggleEnd(feature-3)
 

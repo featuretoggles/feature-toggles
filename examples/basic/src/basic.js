@@ -66,6 +66,13 @@ else if (true) {
 }
 //toggleEnd(feature-3)
 
+const func = (
+  firstArg,
+  /*toggleStart(feature-3)*/ secondArg,
+  /*toggleEnd(feature-3)*/ thirdArg
+) => {
+  console.log();
+};
 function basic() {
   // toggleStart(feature-3)
   console.log("This will get remove");

@@ -318,8 +318,8 @@ Follow the below example will help you understand more.
 
 ## Try it
 
-[Example 1 - Basic example](https://runkit.com/pandasanjay/runkit-npm-babel-plugin-feature-toggles)
+[Example - Babel plugin](https://astexplorer.net/#/gist/e0ad0b507db335f520e31eaa68e863f7/5303ce63fe84e88dd94b7f424ce6cd8f3d73ae97)
 
-[Example 1 - React Component example](https://runkit.com/pandasanjay/babel-component)
+[Example - Remove toggle](https://astexplorer.net/#/gist/8f939c0e557f235fff82d845adac88a3/02b32253543ab769e409a5c44e0afd280cf79798)
 
-Credits : [@paulpruteanu](https://github.com/paulpruteanu)
+Credits : Thank you [Paul Pruteanu](https://github.com/paulpruteanu) - Today I am able to build this plugin, becurse of him. He helped me to understand the problem statement and guide me through the thought process.
