@@ -116,18 +116,18 @@ var Welcome = /*#__PURE__*/function (_React$Component) {
   (0, _createClass2[\\"default\\"])(Welcome, [{
     key: \\"render\\",
     value: function render() {
-      return /*#__PURE__*/_react[\\"default\\"].createElement(\\"div\\", null, /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
+      return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
     }
   }]);
   return Welcome;
 }(_react[\\"default\\"].Component);
 
 var newComponent = function newComponent() {
-  return /*#__PURE__*/_react[\\"default\\"].createElement(\\"div\\", null, /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is existing feature\\"), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), /*#__PURE__*/_react[\\"default\\"].createElement(Welcome, {
+  return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is existing feature\\"), _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(Welcome, {
     abc: \\"true\\"
     /* toggleStart(feature-3) */
 
-  }), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
+  }), _react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
 };
 
 exports.newComponent = newComponent;
@@ -202,18 +202,18 @@ var Welcome = /*#__PURE__*/function (_React$Component) {
   (0, _createClass2[\\"default\\"])(Welcome, [{
     key: \\"render\\",
     value: function render() {
-      return /*#__PURE__*/_react[\\"default\\"].createElement(\\"div\\", null, /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
+      return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
     }
   }]);
   return Welcome;
 }(_react[\\"default\\"].Component);
 
 var newComponent = function newComponent() {
-  return /*#__PURE__*/_react[\\"default\\"].createElement(\\"div\\", null, /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is existing feature\\"), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), /*#__PURE__*/_react[\\"default\\"].createElement(Welcome, {
+  return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is existing feature\\"), _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(Welcome, {
     abc: \\"true\\"
     /* toggleStart(feature-3) */
 
-  }), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
+  }), _react[\\"default\\"].createElement(\\"h1\\", null, \\"This will show\\"));
 };
 
 exports.newComponent = newComponent;
