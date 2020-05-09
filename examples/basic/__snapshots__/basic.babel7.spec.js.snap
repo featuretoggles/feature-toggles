@@ -63,6 +63,12 @@ obj.abc) {
 else {} //toggleEnd(feature-3)
 
 
+var func = function func(firstArg,
+/*toggleEnd(feature-3)*/
+thirdArg) {
+  console.log();
+};
+
 function basic() {
   // toggleEnd(feature-3)
   // The below toggle is not available in the toggle list so that will not removed by toggle

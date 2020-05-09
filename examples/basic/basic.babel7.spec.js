@@ -1,6 +1,5 @@
 import { transformFileSync } from "@babel/core";
 import featureTogglePlugin from "../../src";
-
 /**
  * Here this is a basic example get transpile by babel plugin
  */
