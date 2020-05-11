@@ -116,14 +116,15 @@ export const toggleCommonFunction = j => {
       };
       return this;
     },
-    getTogglePositions: function(toggleName) {
+    getTogglePositions: function(toggleFlag) {
       const { toggleKeys, toggles } = this._toggleInfo;
+      this._toggleInfo["toggleFlag"] = toggleFlag;
       const togglePosition = {};
       toggles.forEach(data => {
         const res = data.value.match(
           new RegExp(`(${toggleKeys.join("|")})\\((.*)\\)`, "i")
         );
-        if (res[2] !== toggleName) return;
+        if (res[2] !== toggleFlag) return;
         togglePosition[res[2]] = togglePosition[res[2]] || [{}];
         if (RegExp(res[1], "i").test(toggleKeys[0])) {
           if (togglePosition[res[2]][togglePosition[res[2]].length - 1].start) {
@@ -167,15 +168,16 @@ export const toggleCommonFunction = j => {
       return this;
     },
     cleanComments: function() {
-      const { togglePosition, toggleKeys } = this._toggleInfo;
+      const { togglePosition, toggleKeys, toggleFlag } = this._toggleInfo;
       this.find(j.Comment).forEach(node => {
         Object.values(togglePosition).forEach(togglePosValue => {
           togglePosValue.forEach(togglePos => {
             if (checkPosition(node, togglePos)) {
               if (
-                RegExp(`(${toggleKeys.join("|")})\\((.*)\\)`, "i").test(
-                  node.value.value
-                )
+                RegExp(
+                  `(${toggleKeys.join("|")})\\((${toggleFlag || ".*"})\\)`,
+                  "i"
+                ).test(node.value.value)
               ) {
                 node.prune();
               }
