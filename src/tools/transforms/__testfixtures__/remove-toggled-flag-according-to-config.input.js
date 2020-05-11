@@ -12,7 +12,9 @@ import ReactDom from "react-dom";
 switch (abc) {
   /* toggleStart(feature-3) */
   case false:
+    /* toggleStart(feature-1) */
     console.log("Hello2");
+  /* toggleEnd(feature-1) */
   /* toggleEnd(feature-3) */
   /* toggleStart(old-feature-3) */
   case true:

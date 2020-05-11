@@ -320,8 +320,8 @@ Follow the below example will help you understand more.
 
 [Example - Babel plugin](https://astexplorer.net/#/gist/e0ad0b507db335f520e31eaa68e863f7/d49d6b5f5787e92217725d4c4d951cdfeac9c639)
 
-[Example - Remove toggle code](https://astexplorer.net/#/gist/8f939c0e557f235fff82d845adac88a3/3217d873e79d7f30508ae1b9c20829ff64b801bf)
+[Example - Remove toggle code](https://astexplorer.net/#/gist/8f939c0e557f235fff82d845adac88a3/b50eff65d877b4b0f199a964a48333bc59c223e3)
 
-[Example - Remove toggle comment](https://astexplorer.net/#/gist/8f939c0e557f235fff82d845adac88a3/6e12ad97262b74bb3bd93fa954212752960717d6)
+[Example - Remove toggle comment](https://astexplorer.net/#/gist/8f939c0e557f235fff82d845adac88a3/5a2c62a34e3796199ca371a1edd8fab7face2f14)
 
 Credits : Thank you [Paul Pruteanu](https://github.com/paulpruteanu) - Today I am able to build this plugin, becurse of him. He helped me to understand the problem statement and guide me through the thought process.
