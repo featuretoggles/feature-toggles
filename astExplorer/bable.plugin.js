@@ -1,21 +1,21 @@
 process.env = {};
 process.cwd = () => {};
 const argv = {
-  toggleConfig: "feature-3"
+  toggleConfig: "feature-3",
 };
 const defaultConfig = {
   commentStart: "toggleStart",
   commentEnd: "toggleEnd",
   toggleConfigPath: "toggle-configs",
-  customTransformPath: "./ft-transforms"
+  customTransformPath: "./ft-transforms",
 };
 
 const log = () => {};
-export default babel => {
+export default (babel) => {
   const { types: t } = babel;
   const inFileConfig = "featureTogglesConfig:";
   const allVisitors = Object.keys(t.VISITOR_KEYS)
-    .filter(data => data !== "Program")
+    .filter((data) => data !== "Program")
     .join("|");
 
   const checkPosition = (path, pos) => {
@@ -26,14 +26,30 @@ export default babel => {
       ["left", "right"].includes(node.key) &&
       !t.isAssignmentExpression(node.parentPath)
     ) {
-      if (node.key == "right" && node.parent["left"]) {
-        node.parentPath.replaceWith(node.parent["left"]);
+      const leftNode = node.parent["left"];
+      const rightNode = node.parent["right"];
+
+      if (node.key == "right" && leftNode) {
+        node.parentPath.replaceWith(leftNode);
         pos.push(true);
-      } else if (node.key == "left" && node.parent["right"]) {
-        node.parentPath.replaceWith(node.parent["right"]);
+      } else if (node.key == "left" && rightNode) {
+        if (
+          t.isJSXElement(rightNode) &&
+          t.isLogicalExpression(node.parentPath)
+        ) {
+          node.replaceWith(t.BooleanLiteral(true));
+          if (node.parent.operator === "||") {
+            node.parent.operator = "&&";
+          }
+        } else {
+          node.parentPath.replaceWith(node.parent["right"]);
+        }
         pos.push(true);
       }
-    } else if (t.isIfStatement(node.parentPath)) {
+    } else if (
+      t.isIfStatement(node.parentPath) ||
+      t.isConditionalExpression(node.parentPath)
+    ) {
       if (checkPosition(node, pos)) {
         switch (node.key) {
           case "test":
@@ -79,6 +95,7 @@ export default babel => {
         } else {
           node.parentPath.remove();
         }
+        pos.push(true);
       }
     }
   };
@@ -87,7 +104,7 @@ export default babel => {
     pre(state) {
       this.opts = {
         ...defaultConfig,
-        ...this.opts
+        ...this.opts,
       };
       const dir =
         process.env.TOGGLE_DIR ||
@@ -110,13 +127,13 @@ export default babel => {
           toggles
         );
       } else {
-        /* throw new Error(
-          "Failed - Looks like you are not provided 'toggleConfig' file path. \n Try using '--toggleConfig=<config file name>'"
-        ); */
+        // throw new Error(
+        //   "Failed - Looks like you are not provided 'toggleConfig' file path. \n Try using '--toggleConfig=<config file name>'"
+        // );
       }
       const listToggleName = {};
       const finalToggleList = {};
-      state.ast.comments.forEach(data => {
+      state.ast.comments.forEach((data) => {
         if (data.value.indexOf(inFileConfig) !== -1) {
           try {
             const overrideFeatureNames =
@@ -125,7 +142,7 @@ export default babel => {
               ) || {};
             toggles = {
               ...toggles,
-              ...overrideFeatureNames
+              ...overrideFeatureNames,
             };
           } catch (error) {
             throw Error(
@@ -176,37 +193,43 @@ export default babel => {
           finalToggleList[key].push(listToggleName[key].splice(0, 2));
       });
       if (log.enabled) {
-        Object.keys(finalToggleList).forEach(name => {
+        Object.keys(finalToggleList).forEach((name) => {
           log(`"${name}" Applied at position %o`, finalToggleList[name]);
         });
       }
       this.finalToggleList = finalToggleList;
     },
     visitor: {
-      [allVisitors](path, { finalToggleList }) {
-        Object.values(finalToggleList).forEach(data => {
-          data.forEach(pos => {
-            if (checkPosition(path, pos)) {
-              t.removeComments(path.node);
-              if (!isNaN(path.key)) {
-                path.remove();
-                pos.push(true);
-              } else {
-                adjustNodeAndUpdate(path, pos);
-              }
-            }
+      Program: {
+        enter(path, { finalToggleList }) {
+          path.traverse({
+            [allVisitors](path) {
+              Object.values(finalToggleList).forEach((data) => {
+                data.forEach((pos) => {
+                  if (checkPosition(path, pos)) {
+                    t.removeComments(path.node);
+                    if (!isNaN(path.key)) {
+                      path.remove();
+                      pos.push(true);
+                    } else {
+                      adjustNodeAndUpdate(path, pos);
+                    }
+                  }
+                });
+              });
+            },
           });
-        });
-      }
+        },
+      },
     },
     post() {
       const validate = Object.values(this.finalToggleList)
-        .map(data => {
-          return data.every(pos => {
+        .map((data) => {
+          return data.every((pos) => {
             if (!pos[0]) {
               const filterRes = Object.values(this.finalToggleList)
                 .reduce((data, next) => data.concat(next), [])
-                .filter(data => data[0] < pos[0] && data[1] > pos[1]);
+                .filter((data) => data[0] < pos[0] && data[1] > pos[1]);
               if (filterRes[0] && filterRes[0][2]) {
                 return true;
               }
@@ -215,13 +238,13 @@ export default babel => {
             }
           });
         })
-        .every(data => data);
+        .every((data) => data);
       if (!validate) {
         log("Missing flags %o", this.finalToggleList);
         throw new Error(
           `Feature toggling failed. \nLooks like problem with ${packages.name}. Please create a issue ${packages.bugs.url}`
         );
       }
-    }
+    },
   };
 };
