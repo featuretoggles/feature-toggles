@@ -1,6 +1,6 @@
 {
   "name": "feature-toggles",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A feature toggles solution for javascript applications.",
   "main": "index.js",
   "bin": {

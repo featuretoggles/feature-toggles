@@ -7,11 +7,11 @@ import finder from "find-package-json";
 let packages = finder(__dirname).next().value;
 const log = debug("feature-toggles:babel-plugin");
 
-export default (babel) => {
+export default babel => {
   const { types: t } = babel;
   const inFileConfig = "featureTogglesConfig:";
   const allVisitors = Object.keys(t.VISITOR_KEYS)
-    .filter((data) => data !== "Program")
+    .filter(data => data !== "Program")
     .join("|");
 
   const checkPosition = (path, pos) => {
@@ -100,7 +100,7 @@ export default (babel) => {
     pre(state) {
       this.opts = {
         ...defaultConfig,
-        ...this.opts,
+        ...this.opts
       };
       const dir =
         process.env.TOGGLE_DIR ||
@@ -129,7 +129,7 @@ export default (babel) => {
       }
       const listToggleName = {};
       const finalToggleList = {};
-      state.ast.comments.forEach((data) => {
+      state.ast.comments.forEach(data => {
         if (data.value.indexOf(inFileConfig) !== -1) {
           try {
             const overrideFeatureNames =
@@ -138,7 +138,7 @@ export default (babel) => {
               ) || {};
             toggles = {
               ...toggles,
-              ...overrideFeatureNames,
+              ...overrideFeatureNames
             };
           } catch (error) {
             throw Error(
@@ -189,7 +189,7 @@ export default (babel) => {
           finalToggleList[key].push(listToggleName[key].splice(0, 2));
       });
       if (log.enabled) {
-        Object.keys(finalToggleList).forEach((name) => {
+        Object.keys(finalToggleList).forEach(name => {
           log(`"${name}" Applied at position %o`, finalToggleList[name]);
         });
       }
@@ -200,8 +200,8 @@ export default (babel) => {
         enter(path, { finalToggleList }) {
           path.traverse({
             [allVisitors](path) {
-              Object.values(finalToggleList).forEach((data) => {
-                data.forEach((pos) => {
+              Object.values(finalToggleList).forEach(data => {
+                data.forEach(pos => {
                   if (checkPosition(path, pos)) {
                     t.removeComments(path.node);
                     if (!isNaN(path.key)) {
@@ -213,19 +213,19 @@ export default (babel) => {
                   }
                 });
               });
-            },
+            }
           });
-        },
-      },
+        }
+      }
     },
     post() {
       const validate = Object.values(this.finalToggleList)
-        .map((data) => {
-          return data.every((pos) => {
+        .map(data => {
+          return data.every(pos => {
             if (!pos[0]) {
               const filterRes = Object.values(this.finalToggleList)
                 .reduce((data, next) => data.concat(next), [])
-                .filter((data) => data[0] < pos[0] && data[1] > pos[1]);
+                .filter(data => data[0] < pos[0] && data[1] > pos[1]);
               if (filterRes[0] && filterRes[0][2]) {
                 return true;
               }
@@ -234,13 +234,13 @@ export default (babel) => {
             }
           });
         })
-        .every((data) => data);
+        .every(data => data);
       if (!validate) {
         log("Missing flags %o", this.finalToggleList);
         throw new Error(
           `Feature toggling failed. \nLooks like problem with ${packages.name}. Please create a issue ${packages.bugs.url}`
         );
       }
-    },
+    }
   };
 };

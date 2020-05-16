@@ -16,10 +16,11 @@ const deepUnique = (elem, index, array) => {
 };
 export const toggleCommonFunction = j => {
   const restoreCommentForNode = (node, commentsNode = null, process = null) => {
+    if (!node) return null;
     let { trailingComments, leadingComments, comments } = node;
     let tComments = trailingComments;
     if (commentsNode) {
-      var { leadingComments: lc, comments: c } = commentsNode;
+      var { leadingComments: lc, comments: c } = commentsNode || {};
       tComments = (trailingComments || []).concat(lc || []).concat(c || []);
     }
     if (typeof process === "function") {
@@ -53,16 +54,19 @@ export const toggleCommonFunction = j => {
       ["left", "right"].includes(node.name) &&
       !j.AssignmentExpression.check(node.parentPath.value)
     ) {
-      if (node.name == "right") {
+      if (node.name == "right" && node.parentPath.value["left"]) {
         node.parentPath.replace(
           restoreCommentForNode(node.parentPath.value["left"], node.value)
         );
-      } else if (node.name == "left") {
+      } else if (node.name == "left" && node.parentPath.value["right"]) {
         node.parentPath.replace(
           restoreCommentForNode(node.parentPath.value["right"], node.value)
         );
       }
-    } else if (j.IfStatement.check(node.parentPath.value)) {
+    } else if (
+      j.IfStatement.check(node.parentPath.value) ||
+      j.ConditionalExpression.check(node.parentPath.value)
+    ) {
       if (checkPosition(node, togglePos)) {
         switch (node.name) {
           case "test":

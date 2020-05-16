@@ -1,26 +1,19 @@
-/*
-featureTogglesConfig: {
-  "feature-10": false
-}
-*/
+/* toggleStart(old-feature-3) */
 import React from "react";
-
-/* toggleStart(feature-10) */
+/* toggleEnd(old-feature-3) */
 import ReactDom from "react-dom";
-/* toggleEnd(feature-10) */
-
 switch (abc) {
-  case false:
-    /* toggleStart(feature-1) */
-    console.log("Hello2");
-  /* toggleEnd(feature-1) */
-  /* toggleStart(old-feature-3) */
-  case true:
-    console.log("Hello");
-  /* toggleEnd(old-feature-3) */
+case false:
+  console.log("Hello2");
+/* toggleStart(old-feature-3) */
+case true:
+  console.log("Hello");
+/* toggleEnd(old-feature-3) */
 }
-
 const obj1 = {
+  /* toggleStart(old-feature-3) */
+  xyzabc: true,
+  /* toggleEnd(old-feature-3) */
   abc: true,
   /* toggleStart(old-feature-3) */
   xyz: true
@@ -29,7 +22,7 @@ const obj1 = {
 
 let abc;
 abc = true;
-abc = false;
+abc = flase;
 switch (abc) {
 case true:
   console.log("Hello");
@@ -54,6 +47,24 @@ if (
 else if (true) {
   console.log();
 }
+if (obj.abc) {
+  console.log("hello");
+} else {
+  console.log("hello2");
+  console.log("hello1");
+}
+
+if (obj.abc)
+  console.log("next");
+
+if (obj.abc) {
+  console.log("hello");
+} else {
+  console.log("hello1");
+}
+
+let newVar = aCond ? "Hello" : "Bye";
+
 class Welcome extends React.Component {
   render() {
     return (
@@ -62,6 +73,8 @@ class Welcome extends React.Component {
         <h1>This feature is under development</h1>
 
         <h1>You only see me, I am a full feature</h1>
+        {xyz ? "Get" : <Hello abc="abc" />}
+        {aCondition && bCondition && <h1 className="">This feature is existing feature</h1>}
         <h1>
           {
             /*toggleStart(feature-10)*/ "This feature is under development" /*toggleEnd(feature-10)*/

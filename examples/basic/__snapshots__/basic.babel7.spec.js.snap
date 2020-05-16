@@ -34,10 +34,15 @@ switch (abc) {
 
   /* toggleStart(feature-3) */
 }
+
+var newVar =
+/* toggleEnd(feature-3) */
+
+/* toggleStart(feature-3) */
+\\"Bye\\";
 /**
  * Inside Object
  */
-
 
 var obj = {
   /* toggleEnd(feature-3) */

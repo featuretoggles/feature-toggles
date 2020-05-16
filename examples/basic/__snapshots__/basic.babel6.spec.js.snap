@@ -27,6 +27,8 @@ switch (abc) {
     console.log(\\"Hello\\");
   /* toggleStart(feature-3) */
 }
+let newVar = /* toggleEnd(feature-3) */
+/* toggleStart(feature-3) */\\"Bye\\";
 
 /**
  * Inside Object

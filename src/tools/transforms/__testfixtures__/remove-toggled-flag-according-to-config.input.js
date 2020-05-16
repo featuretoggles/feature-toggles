@@ -1,28 +1,24 @@
-/*
-featureTogglesConfig: {
-  "feature-10": false
-}
-*/
+/* toggleStart(old-feature-3) */
 import React from "react";
-
-/* toggleStart(feature-10) */
+/* toggleEnd(old-feature-3) */
+/* toggleStart(feature-3) */
 import ReactDom from "react-dom";
-/* toggleEnd(feature-10) */
+/* toggleEnd(feature-3) */
 
 switch (abc) {
   /* toggleStart(feature-3) */
   case false:
-    /* toggleStart(feature-1) */
     console.log("Hello2");
-  /* toggleEnd(feature-1) */
   /* toggleEnd(feature-3) */
   /* toggleStart(old-feature-3) */
   case true:
     console.log("Hello");
   /* toggleEnd(old-feature-3) */
 }
-
 const obj1 = {
+  /* toggleStart(old-feature-3) */
+  xyzabc: true,
+  /* toggleEnd(old-feature-3) */
   /* toggleStart(feature-3) */
   abc: true,
   /* toggleEnd(feature-3) */
@@ -34,7 +30,7 @@ const obj1 = {
 let abc;
 abc = true;
 /* toggleStart(feature-3) */
-abc = false;
+abc = flase;
 /* toggleEnd(feature-3) */
 
 switch (abc) {
@@ -71,6 +67,34 @@ else if (true) {
   console.log();
 }
 //toggleEnd(feature-3)
+
+//toggleStart(feature-3)
+if (obj.abc) {
+  console.log("hello");
+}
+//toggleEnd(feature-3)
+else {
+  console.log("hello2");
+  console.log("hello1");
+}
+
+//toggleStart(feature-3)
+if (obj.abc)
+  //toggleEnd(feature-3)
+  console.log("next");
+
+//toggleStart(feature-3)
+if (obj.abc) {
+  console.log("hello");
+} else {
+  //toggleEnd(feature-3)
+  console.log("hello1");
+}
+
+let newVar = /* toggleStart(feature-3) */ aCond
+  ? "Hello" /* toggleEnd(feature-3) */
+  : "Bye";
+
 class Welcome
   /* toggleStart(feature-3) */ extends React.Component /* toggleEnd(feature-3) */ {
   render() {
@@ -80,7 +104,16 @@ class Welcome
         <h1>This feature is under development</h1>
         {/* toggleEnd(feature-3) */}
         <h1>You only see me, I am a full feature</h1>
-
+        {/* toggleStart(feature-3) */ xyz ? (
+          "Get"
+        ) : (
+          /* toggleEnd(feature-3) */ <Hello abc="abc" />
+        )}
+        {/*toggleStart(feature-3)*/ aCondition && bCondition && (
+          /*toggleEnd(feature-3)*/ <h1 className="">
+            This feature is existing feature
+          </h1>
+        )}
         <h1>
           {
             /*toggleStart(feature-10)*/ "This feature is under development" /*toggleEnd(feature-10)*/

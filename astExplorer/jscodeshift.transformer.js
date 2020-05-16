@@ -7,30 +7,46 @@ const checkPosition = (node, togglePos) => {
     togglePos.end >= node.value.end
   );
 };
+const deepUnique = (elem, index, array) => {
+  for (var i = 0; i < index; i++) {
+    if (array[i].value == elem.value) return false;
+  }
+  return true;
+};
 export const toggleCommonFunction = j => {
-  const restoreCommentForNode = (node, comments = null, process = null) => {
-    let { trailingComments, leadingComments } = comments || node;
-    if (typeof process === "function") {
-      process(trailingComments, leadingComments);
+  const restoreCommentForNode = (node, commentsNode = null, process = null) => {
+    if (!node) return null;
+    let { trailingComments, leadingComments, comments } = node;
+    let tComments = trailingComments;
+    if (commentsNode) {
+      var { leadingComments: lc, comments: c } = commentsNode || {};
+      tComments = (trailingComments || []).concat(lc || []).concat(c || []);
     }
-    node.comments = (leadingComments || []).concat(trailingComments || []);
+    if (typeof process === "function") {
+      process(tComments, leadingComments);
+    }
+    const allcomments = (leadingComments || [])
+      .concat(tComments || [])
+      .concat(comments || []);
+    node.comments = allcomments.filter(deepUnique);
     return node;
   };
   const adjustCommentBeforeRemove = node => {
-    const nodeType = node.value.type;
+    const nodeValue = node.value;
     node.prune();
-    if (["JSXAttribute"].indexOf(nodeType) !== -1) {
-      const updatedNode =
-        node.parentPath.value[node.name] ||
-        node.parentPath.value[node.name - 1];
-      updatedNode &&
-        restoreCommentForNode(updatedNode, null, function(trailingComments) {
+    const collectCommentFromNearNode = [
+      node.parentPath.value[node.name],
+      node.parentPath.value[node.name - 1]
+    ];
+    collectCommentFromNearNode.forEach(cNode => {
+      cNode &&
+        restoreCommentForNode(cNode, nodeValue, function(trailingComments) {
           (trailingComments || []).forEach(data => {
             data.trailing = true;
             data.leading = false;
           });
         });
-    }
+    });
   };
   const adjustNodeAndUpdate = (node, togglePos) => {
     if (
@@ -100,14 +116,15 @@ export const toggleCommonFunction = j => {
       };
       return this;
     },
-    getTogglePositions: function(toggleName) {
+    getTogglePositions: function(toggleFlag) {
       const { toggleKeys, toggles } = this._toggleInfo;
+      this._toggleInfo["toggleFlag"] = toggleFlag;
       const togglePosition = {};
       toggles.forEach(data => {
         const res = data.value.match(
           new RegExp(`(${toggleKeys.join("|")})\\((.*)\\)`, "i")
         );
-        if (res[2] !== toggleName) return;
+        if (res[2] !== toggleFlag) return;
         togglePosition[res[2]] = togglePosition[res[2]] || [{}];
         if (RegExp(res[1], "i").test(toggleKeys[0])) {
           if (togglePosition[res[2]][togglePosition[res[2]].length - 1].start) {
@@ -151,15 +168,16 @@ export const toggleCommonFunction = j => {
       return this;
     },
     cleanComments: function() {
-      const { togglePosition, toggleKeys } = this._toggleInfo;
+      const { togglePosition, toggleKeys, toggleFlag } = this._toggleInfo;
       this.find(j.Comment).forEach(node => {
         Object.values(togglePosition).forEach(togglePosValue => {
           togglePosValue.forEach(togglePos => {
             if (checkPosition(node, togglePos)) {
               if (
-                RegExp(`(${toggleKeys.join("|")})\\((.*)\\)`, "i").test(
-                  node.value.value
-                )
+                RegExp(
+                  `(${toggleKeys.join("|")})\\((${toggleFlag || ".*"})\\)`,
+                  "i"
+                ).test(node.value.value)
               ) {
                 node.prune();
               }

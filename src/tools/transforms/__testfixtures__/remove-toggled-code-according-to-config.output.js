@@ -1,8 +1,3 @@
-/*
-featureTogglesConfig: {
-  "feature-10": false
-}
-*/
 /* toggleStart(old-feature-3) */
 import React from "react";
 /* toggleEnd(old-feature-3) */
@@ -51,12 +46,16 @@ console.log("next");
   console.log("hello1");
 }
 
+let newVar = "Bye";
+
 class Welcome {
   render() {
     return (
       <div>
 
         <h1>You only see me, I am a full feature</h1>
+        {<Hello abc="abc" />}
+        {<h1 className="">This feature is existing feature</h1>}
         <h1>
           {
             /*toggleStart(feature-10)*/ "This feature is under development" /*toggleEnd(feature-10)*/
