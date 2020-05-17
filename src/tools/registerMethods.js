@@ -26,10 +26,10 @@ export const toggleCommonFunction = j => {
     if (typeof process === "function") {
       process(tComments, leadingComments);
     }
-    const allcomments = (leadingComments || [])
+    const allComments = (leadingComments || [])
       .concat(tComments || [])
       .concat(comments || []);
-    node.comments = allcomments.filter(deepUnique);
+    node.comments = allComments.filter(deepUnique);
     return node;
   };
   const adjustCommentBeforeRemove = node => {
@@ -54,14 +54,12 @@ export const toggleCommonFunction = j => {
       ["left", "right"].includes(node.name) &&
       !j.AssignmentExpression.check(node.parentPath.value)
     ) {
-      if (node.name == "right" && node.parentPath.value["left"]) {
-        node.parentPath.replace(
-          restoreCommentForNode(node.parentPath.value["left"], node.value)
-        );
-      } else if (node.name == "left" && node.parentPath.value["right"]) {
-        node.parentPath.replace(
-          restoreCommentForNode(node.parentPath.value["right"], node.value)
-        );
+      const leftNode = node.parentPath.value["left"];
+      const rightNode = node.parentPath.value["right"];
+      if (node.name == "right" && leftNode) {
+        node.parentPath.replace(restoreCommentForNode(leftNode, node.value));
+      } else if (node.name == "left" && rightNode) {
+        node.parentPath.replace(restoreCommentForNode(rightNode, node.value));
       }
     } else if (
       j.IfStatement.check(node.parentPath.value) ||
