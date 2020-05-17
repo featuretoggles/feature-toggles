@@ -22,14 +22,30 @@ export default babel => {
       ["left", "right"].includes(node.key) &&
       !t.isAssignmentExpression(node.parentPath)
     ) {
-      if (node.key == "right" && node.parent["left"]) {
-        node.parentPath.replaceWith(node.parent["left"]);
+      const leftNode = node.parent["left"];
+      const rightNode = node.parent["right"];
+
+      if (node.key == "right" && leftNode) {
+        node.parentPath.replaceWith(leftNode);
         pos.push(true);
-      } else if (node.key == "left" && node.parent["right"]) {
-        node.parentPath.replaceWith(node.parent["right"]);
+      } else if (node.key == "left" && rightNode) {
+        if (
+          t.isJSXElement(rightNode) &&
+          t.isLogicalExpression(node.parentPath)
+        ) {
+          node.replaceWith(t.BooleanLiteral(true));
+          if (node.parent.operator === "||") {
+            node.parent.operator = "&&";
+          }
+        } else {
+          node.parentPath.replaceWith(node.parent["right"]);
+        }
         pos.push(true);
       }
-    } else if (t.isIfStatement(node.parentPath)) {
+    } else if (
+      t.isIfStatement(node.parentPath) ||
+      t.isConditionalExpression(node.parentPath)
+    ) {
       if (checkPosition(node, pos)) {
         switch (node.key) {
           case "test":
@@ -180,20 +196,26 @@ export default babel => {
       this.finalToggleList = finalToggleList;
     },
     visitor: {
-      [allVisitors](path, { finalToggleList }) {
-        Object.values(finalToggleList).forEach(data => {
-          data.forEach(pos => {
-            if (checkPosition(path, pos)) {
-              t.removeComments(path.node);
-              if (!isNaN(path.key)) {
-                path.remove();
-                pos.push(true);
-              } else {
-                adjustNodeAndUpdate(path, pos);
-              }
+      Program: {
+        enter(path, { finalToggleList }) {
+          path.traverse({
+            [allVisitors](path) {
+              Object.values(finalToggleList).forEach(data => {
+                data.forEach(pos => {
+                  if (checkPosition(path, pos)) {
+                    t.removeComments(path.node);
+                    if (!isNaN(path.key)) {
+                      path.remove();
+                      pos.push(true);
+                    } else {
+                      adjustNodeAndUpdate(path, pos);
+                    }
+                  }
+                });
+              });
             }
           });
-        });
+        }
       }
     },
     post() {

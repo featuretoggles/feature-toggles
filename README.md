@@ -318,10 +318,10 @@ Follow the below example will help you understand more.
 
 ## Try it
 
-[Example - Babel plugin](https://astexplorer.net/#/gist/e0ad0b507db335f520e31eaa68e863f7/d49d6b5f5787e92217725d4c4d951cdfeac9c639)
+[Example - Babel plugin](https://astexplorer.net/#/gist/e0ad0b507db335f520e31eaa68e863f7/3e8978c667db4fcbd45329199c3ae8afc8fd5b89)
 
-[Example - Remove toggle code](https://astexplorer.net/#/gist/8f939c0e557f235fff82d845adac88a3/b50eff65d877b4b0f199a964a48333bc59c223e3)
+[Example - Remove toggle code](https://astexplorer.net/#/gist/8f939c0e557f235fff82d845adac88a3/932d176bec4fd8973ef88e598c032254315a64aa)
 
-[Example - Remove toggle comment](https://astexplorer.net/#/gist/8f939c0e557f235fff82d845adac88a3/5a2c62a34e3796199ca371a1edd8fab7face2f14)
+[Example - Remove toggle comment](https://astexplorer.net/#/gist/8f939c0e557f235fff82d845adac88a3/45b37bc60f81b4ac50fd4d434abfd56da1e035ce)
 
 Credits : Thank you [Paul Pruteanu](https://github.com/paulpruteanu) - Today I am able to build this plugin, becurse of him. He helped me to understand the problem statement and guide me through the thought process.

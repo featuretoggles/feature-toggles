@@ -1,8 +1,3 @@
-/*
-featureTogglesConfig: {
-  "feature-10": false
-}
-*/
 /* toggleStart(old-feature-3) */
 import React from "react";
 /* toggleEnd(old-feature-3) */
@@ -96,6 +91,10 @@ if (obj.abc) {
   console.log("hello1");
 }
 
+let newVar = /* toggleStart(feature-3) */ aCond
+  ? "Hello" /* toggleEnd(feature-3) */
+  : "Bye";
+
 class Welcome
   /* toggleStart(feature-3) */ extends React.Component /* toggleEnd(feature-3) */ {
   render() {
@@ -105,7 +104,16 @@ class Welcome
         <h1>This feature is under development</h1>
         {/* toggleEnd(feature-3) */}
         <h1>You only see me, I am a full feature</h1>
-
+        {/* toggleStart(feature-3) */ xyz ? (
+          "Get"
+        ) : (
+          /* toggleEnd(feature-3) */ <Hello abc="abc" />
+        )}
+        {/*toggleStart(feature-3)*/ aCondition && bCondition && (
+          /*toggleEnd(feature-3)*/ <h1 className="">
+            This feature is existing feature
+          </h1>
+        )}
         <h1>
           {
             /*toggleStart(feature-10)*/ "This feature is under development" /*toggleEnd(feature-10)*/

@@ -13,7 +13,6 @@ it("BABEL7 - Basic function", () => {
 
 it("BABEL7- React component function ", () => {
   const { code } = transformFileSync(`${__dirname}/src/ReactComponent.js`, {
-    rootMode: "upward",
     plugins: [
       [featureTogglePlugin, { dir: __dirname, toggleConfig: "ft1" }],
       "@babel/plugin-transform-react-jsx"
