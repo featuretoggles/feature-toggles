@@ -129,60 +129,50 @@ var Welcome = /*#__PURE__*/function (_React$Component) {
   (0, _createClass2[\\"default\\"])(Welcome, [{
     key: \\"render\\",
     value: function render() {
-      return /*#__PURE__*/_react[\\"default\\"].createElement(\\"div\\", null, /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"),
-      /*#__PURE__*/
-
+      return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"),
       /* toggleEnd(feature-3) */
 
       /* toggleStart(feature-3) */
       _react[\\"default\\"].createElement(Hello, {
         abc: \\"abc\\"
-      }), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is under development\\", \\"This will show\\"));
+      }), _react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is under development\\", \\"This will show\\"));
     }
   }]);
   return Welcome;
 }(_react[\\"default\\"].Component);
 
 var newComponent = function newComponent() {
-  return /*#__PURE__*/_react[\\"default\\"].createElement(\\"div\\", null,
+  return _react[\\"default\\"].createElement(\\"div\\", null,
   /*toggleStart(feature-3)*/
   true &&
-  /*#__PURE__*/
-
   /*toggleEnd(feature-3)*/
   _react[\\"default\\"].createElement(\\"h1\\", {
     className: \\"\\"
   }, \\"This feature is existing feature\\"),
   /*toggleStart(feature-3)*/
   true &&
-  /*#__PURE__*/
-
   /*toggleEnd(feature-3)*/
   _react[\\"default\\"].createElement(\\"h1\\", {
     className: \\"\\"
   }, \\"This feature is existing feature\\"),
   /*toggleStart(feature-3)*/
   true &&
-  /*#__PURE__*/
-
   /*toggleEnd(feature-3)*/
   _react[\\"default\\"].createElement(NewComponent, {
     newProperty: \\"\\"
   }),
-  /*#__PURE__*/
-
   /*toggleEnd(feature-3)*/
 
   /*toggleStart(feature-3)*/
   _react[\\"default\\"].createElement(NewComponent2, (0, _extends2[\\"default\\"])({
     newProperty2: \\"foo\\"
-  }, props)), /*#__PURE__*/_react[\\"default\\"].createElement(NewComponent1, (0, _extends2[\\"default\\"])({
+  }, props)), _react[\\"default\\"].createElement(NewComponent1, (0, _extends2[\\"default\\"])({
     newProperty1: \\"\\"
-  }, abc)), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), /*#__PURE__*/_react[\\"default\\"].createElement(Welcome, {
+  }, abc)), _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(Welcome, {
     abc: \\"true\\"
     /* toggleStart(feature-3) */
 
-  }), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is under development\\", \\"This will show\\"));
+  }), _react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is under development\\", \\"This will show\\"));
 };
 
 exports.newComponent = newComponent;
@@ -259,60 +249,50 @@ var Welcome = /*#__PURE__*/function (_React$Component) {
   (0, _createClass2[\\"default\\"])(Welcome, [{
     key: \\"render\\",
     value: function render() {
-      return /*#__PURE__*/_react[\\"default\\"].createElement(\\"div\\", null, /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"),
-      /*#__PURE__*/
-
+      return _react[\\"default\\"].createElement(\\"div\\", null, _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"),
       /* toggleEnd(feature-3) */
 
       /* toggleStart(feature-3) */
       _react[\\"default\\"].createElement(Hello, {
         abc: \\"abc\\"
-      }), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is under development\\", \\"This will show\\"));
+      }), _react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is under development\\", \\"This will show\\"));
     }
   }]);
   return Welcome;
 }(_react[\\"default\\"].Component);
 
 var newComponent = function newComponent() {
-  return /*#__PURE__*/_react[\\"default\\"].createElement(\\"div\\", null,
+  return _react[\\"default\\"].createElement(\\"div\\", null,
   /*toggleStart(feature-3)*/
   true &&
-  /*#__PURE__*/
-
   /*toggleEnd(feature-3)*/
   _react[\\"default\\"].createElement(\\"h1\\", {
     className: \\"\\"
   }, \\"This feature is existing feature\\"),
   /*toggleStart(feature-3)*/
   true &&
-  /*#__PURE__*/
-
   /*toggleEnd(feature-3)*/
   _react[\\"default\\"].createElement(\\"h1\\", {
     className: \\"\\"
   }, \\"This feature is existing feature\\"),
   /*toggleStart(feature-3)*/
   true &&
-  /*#__PURE__*/
-
   /*toggleEnd(feature-3)*/
   _react[\\"default\\"].createElement(NewComponent, {
     newProperty: \\"\\"
   }),
-  /*#__PURE__*/
-
   /*toggleEnd(feature-3)*/
 
   /*toggleStart(feature-3)*/
   _react[\\"default\\"].createElement(NewComponent2, (0, _extends2[\\"default\\"])({
     newProperty2: \\"foo\\"
-  }, props)), /*#__PURE__*/_react[\\"default\\"].createElement(NewComponent1, (0, _extends2[\\"default\\"])({
+  }, props)), _react[\\"default\\"].createElement(NewComponent1, (0, _extends2[\\"default\\"])({
     newProperty1: \\"\\"
-  }, abc)), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), /*#__PURE__*/_react[\\"default\\"].createElement(Welcome, {
+  }, abc)), _react[\\"default\\"].createElement(\\"h1\\", null, \\"You only see me, I am a full feature\\"), _react[\\"default\\"].createElement(Welcome, {
     abc: \\"true\\"
     /* toggleStart(feature-3) */
 
-  }), /*#__PURE__*/_react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is under development\\", \\"This will show\\"));
+  }), _react[\\"default\\"].createElement(\\"h1\\", null, \\"This feature is under development\\", \\"This will show\\"));
 };
 
 exports.newComponent = newComponent;
